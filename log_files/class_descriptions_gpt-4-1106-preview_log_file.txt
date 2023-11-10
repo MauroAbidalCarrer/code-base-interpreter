@@ -1,0 +1,56 @@
+-NameFunctionCallChoiceStrategy: 
+	The `NameFunctionCallChoiceStrategy` class is a strategy for handling the function name portion of a function call made by the GPT language model within the context of running Python code in a Jupyter kernel.
+	This class extends the `ChoiceStrategy` abstract base class and implements the required support and execute methods.
+	It processes the JSON delta received from the GPT model, specifically looking for a 'function_call' key with a nested 'name' key.
+	The strategy sets the name of the function to be called in the `BotBackend` instance.
+	If the function name does not exist in the `available_functions` of the Jupyter kernel, it updates the history to reflect this by noting that a non-existent function was attempted to be called, potentially setting an exit flag.
+	This strategy is part of a system designed to interactively execute Python code based on user input and language model suggestions.
+-FinishReasonChoiceStrategy: 
+	The 'FinishReasonChoiceStrategy' class inherits from the abstract class 'ChoiceStrategy' and is responsible for handling the final part of a GPT choice during conversational exchanges.
+	It supports choices where a 'finish_reason' key is present, and its execution involves handling the functioning of an Assistant's role after the content has been added to the conversation.
+	If a function call is the reason for finishing, it will execute the specified function using the 'JupyterKernel' available functions, handle errors, update the conversation history, and handle output that may include stdout, error messages, and images.
+	This class is critical in managing how the Assistant takes action after any messaging and serves as one of the strategies to manage decision points in a conversation flow.
+-ContentChoiceStrategy: 
+	The `ContentChoiceStrategy` class is a strategy implementation for handling the 'content' aspect of completion choices received from OpenAI's language model.
+	It is responsible for determining if the 'content' field is present and not `None` in the choice delta.
+	It adds the content to the `BotBackend` instance, updating the bot response accordingly.
+	When executed, it appends the content to the bot's current response message.
+	This class is particularly useful when the AI assistant needs to output text messages as part of the conversation with the user.
+	This strategy ensures the conversational context is correctly maintained within the bot response and chat history.
+-RoleChoiceStrategy: 
+	The 'RoleChoiceStrategy' class is derived from the abstract base class 'ChoiceStrategy' and is tailored to handle choices that involve updating the role of an assistant in a conversation.
+	It focuses specifically on interpreting a particular choice dict which includes a 'role' key to update the bot's assistant role name.
+	This strategy is used during the conversation flow to ensure that the assistant's role is set correctly, for example to distinguish between user-mode and system-mode, and to ensure the right persona is maintained or switched when needed.
+-ArgumentsFunctionCallChoiceStrategy: 
+	The AttributesFunctionCallChoiceStrategy class is a subclass of the base class ChoiceStrategy, designed to handle specific cases where the 'function_call' attribute within a given 'choice' object contains 'arguments'.
+	This strategy supports the situation when you want to handle function calls made by AI assistant responses, and it specializes in processing function arguments from delta information included in a choice object.
+	When executed, the strategy incorporates the function arguments into the bot's response log and ensures the code block is properly displayed for execution.
+	This class particularly deals with hallucinatory function calls where the function name is 'python', and the 'arguments' consist of raw code text instead of a JSON object.
+	In such cases, it extracts code text prepared for execution.
+-GPTResponseLog: 
+	The 'GPTResponseLog' class is a logging utility designed to keep track of the interactions between the user, the AI assistant, and the executed code.
+	This class stores various pieces of information related to the AI's responses within a conversation, such as the role name assumed by the assistant, the textual content of the AI's messages, the name of the function being called (if any), and the arguments passed to that function.
+	Additionally, it holds information about the display format of the executed code block, the reason for finishing the response generation, and a copy of the interaction history.
+	It provides methods to reset log values, update individual log attributes, and copy the current state of the conversation to maintain an accurate history of the interaction flow.
+-JupyterKernel: 
+	The `JupyterKernel` class is responsible for starting and managing a Jupyter kernel to execute Python code.
+	It allows the execution of Python code snippets, captures the output (including text, images, and errors), and can also handle restarting the kernel.
+	An instance of the class represents a single kernel and its associated execution environment.
+	
+	When initialized, it creates a new Jupyter kernel process, sets up a working directory for code execution, and provides methods to execute given code and to restart the kernel.
+	The class keeps track of the code execution output, which can be in various forms such as standard output text, result displays in text or HTML format, and images encoded in PNG or JPEG.
+	Additionally, an execute wrapper method is provided to streamline the execution and response collection process.
+-BotBackend: 
+	The class BotBackend is a subclass of GPTResponseLog and serves as the central management entity for coordinating the AI code interpretation process within a virtual environment.
+	It maintains a unique working directory and a Jupyter kernel for code execution, manages GPT model selections for inference, and holds the conversation state for processing user interactions.
+	The class also provides methods to initialize and restart its state, add received messages to the interaction history, manage file uploads, execute Python code through the Jupyter kernel, and generate responses based on the code execution results.
+	It employs a GPT model, configurable via the 'gpt_model_choice' attribute, to assist users in executing Python code snippets within the Jupyter kernel and is capable of switching between different GPT versions.
+-ChoiceHandler: 
+	The class 'ChoiceHandler' orchestrates the handling of choices made by the GPT model in response to user input or function calls.
+	It maintains a list of strategies and iteratively applies each strategy to process and execute the corresponding choice each time the model generates a response.
+-ChoiceStrategy: 
+	ChoiceStrategy is an abstract base class following the Strategy design pattern.
+	It defines a common interface for handling different types of choices that the AI code interpreter can encounter during its operation.
+	Each subclass of ChoiceStrategy is responsible for handling a specific type of choice logic, such as setting the role of the assistant, executing content updates, function calls, and so on.
+	The class contains a constructor that initializes a choice object and an abstract `support` method to determine if a specific subclass can handle the given choice.
+	It also specifies an abstract `execute` method that each subclass must implement to perform the action required by the choice, such as executing a piece of code, parsing arguments, or updating internal state or history.

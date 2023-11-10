@@ -1,0 +1,22 @@
+BotBackend:
+  represents: the backend logic for a bot interface
+  responsible_for: handling the core functionality of a bot such as processing requests,
+    managing conversations, and interacting with other components.
+ChoiceHandler:
+  represents: a component responsible for managing and executing choices based on
+    different strategies
+  responsible_for: orchestrating the decision-making process by selecting and invoking
+    the appropriate ChoiceStrategy.
+ChoiceStrategy:
+  represents: an abstraction for different strategies to make choices in the codebase
+  responsible_for: providing a generic interface for implementing various choice-making
+    mechanisms.
+GPTResponseLog:
+  represents: a class designed to log and manage the responses from GPT models
+  responsible_for: recording the interactions with GPT models and retrieving past
+    responses for analysis or debugging.
+NameFunctionCallChoiceStrategy:
+  represents: a concrete implementation of the ChoiceStrategy that makes choices based
+    on named function calls
+  responsible_for: enabling the selection of functions to execute based on predefined
+    names.

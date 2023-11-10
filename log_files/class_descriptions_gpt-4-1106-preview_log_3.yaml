@@ -1,0 +1,7 @@
+BotBackend:
+  represents: The interface between the bot's higher-level logic and its underlying
+    machine learning model, acting as a mediator to process requests and generate
+    responses.
+  use_for: When integrating the bot's AI capabilities with various user interfaces
+    or communication channels, and for handling API calls to the machine learning
+    model.

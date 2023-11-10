@@ -1,0 +1,26 @@
+BotBackend:
+  represents: the backend component of a chatbot, which handles the logic and interaction
+    between the front end and other services
+  when_to_use: for managing the core functionality of a chatbot, processing user inputs,
+    interfacing with AI models, and providing appropriate responses
+ChoiceHandler:
+  represents: a component that manages logic related to making choices between different
+    options provided by a system
+  when_to_use: when the system provides multiple options and there is a need to select
+    one based on a set of conditions or strategies
+ChoiceStrategy:
+  represents: a generic strategy interface for making choices in different contexts
+  when_to_use: when a generic decision-making process needs to be defined and used
+    in multiple contexts
+GPTResponseLog:
+  represents: a class for logging the responses from the GPT model for analysis or
+    debugging
+  when_to_use: for tracking the interaction between users and the GPT-powered chatbot,
+    to analyze the chatbot's performance, and to debug issues related to the AI's
+    responses
+NameFunctionCallChoiceStrategy:
+  represents: a specific strategy that chooses a function call based on the provided
+    name
+  when_to_use: when there is a need to resolve function calls by their names, especially
+    in a scenario where multiple possible function calls can be made, like in a dynamic
+    dispatch scenario

@@ -1,0 +1,34 @@
+BotBackend:
+  represents: the core logic and integration layer for a bot-based application
+  use_for: handling user input, processing through the model, and sending responses
+GPTResponseLog:
+  represents: a record of interactions with a GPT model
+  use_for: tracking and analyzing model responses for review and debugging
+JupyterKernel:
+  represents: software interface to the Jupyter interactive computing framework
+  use_for: managing kernel instances for executing code snippets in various programming
+    languages
+ArgumentsFunctionCallChoiceStrategy:
+  represents: decision-making for function calls based on arguments
+  use_for: when function argument values influence the choice
+ChoiceStrategy:
+  represents: abstract decision-making mechanism
+  use_for: foundation for concrete strategy implementations
+ContentChoiceStrategy:
+  represents: decision-making based on content analysis
+  use_for: where content decides the choice strategy
+NameFunctionCallChoiceStrategy:
+  represents: decision-making for function calls based on name
+  use_for: when choice is dependent on function name semantics
+RoleChoiceStrategy:
+  represents: decision-making based on roles in a system
+  use_for: specifically for scenarios where roles determine choices
+ChoiceHandler:
+  represents: Mechanism for managing selections made within a process or workflow.
+  use_for: Facilitating user choices and controlling pathing in interactive systems
+    or applications.
+FinishReasonChoiceStrategy:
+  represents: Decision-making framework for determining the conditions under which
+    a process should terminate.
+  use_for: Implementing logic to decide when a user or system-initiated activity reaches
+    its conclusion.

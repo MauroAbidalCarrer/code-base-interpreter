@@ -1,0 +1,18 @@
+BotBackend:
+  represents: Core computational entity managing bot's logical operations.
+  use_for: Developing and maintaining the bot's internal logic and data-handling capabilities.
+ChoiceHandler:
+  represents: A component to manage and execute choices provided by ChoiceStrategy.
+  use_for: Orchestrating the selection and enactment of choices within a system.
+ChoiceStrategy:
+  represents: Abstraction for various strategies to handle choices in a system.
+  use_for: Implementing decision-making mechanisms adaptive to specific contexts.
+GPTResponseLog:
+  represents: A record keeping mechanism for GPT model's responses.
+  use_for: Tracking and analyzing model response patterns and historical interaction
+    data.
+NameFunctionCallChoiceStrategy:
+  represents: A ChoiceStrategy based on naming conventions and function calls in choices
+    handling.
+  use_for: Scenarios requiring integration of naming heuristics and invocation patterns
+    for choice processing.

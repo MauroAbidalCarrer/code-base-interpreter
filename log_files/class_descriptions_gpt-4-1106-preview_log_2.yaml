@@ -1,0 +1,16 @@
+BotBackend:
+  represents: Core functionality for bot operation.
+  use_for: Implementing the logic that powers a chatbot.
+ChoiceHandler:
+  represents: Intermediary that processes choices according to a ChoiceStrategy.
+  use_for: Managing decisions and executing chosen options.
+ChoiceStrategy:
+  represents: Decision-making mechanism for selecting among multiple options.
+  use_for: Situations requiring a choice based on specified criteria.
+GPTResponseLog:
+  represents: Storage for GPT model responses.
+  use_for: Logging interaction history with a GPT model.
+NameFunctionCallChoiceStrategy:
+  represents: Subtype of ChoiceStrategy specific to making decisions on function calls
+    by name.
+  use_for: Selecting the correct function call based on its name.

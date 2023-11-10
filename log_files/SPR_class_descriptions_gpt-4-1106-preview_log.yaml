@@ -1,0 +1,17 @@
+BotBackend:
+  represents: back-end infrastructure for bot operations
+  use_for: managing bot-related tasks such as processing requests and handling interactions
+ChoiceHandler:
+  represents: mediator for executing choice strategies
+  use_for: coordinating the selection process among various choice strategies
+ChoiceStrategy:
+  represents: framework for decision-making processes
+  use_for: implementing customizable choice-making logic in diverse scenarios
+GPTResponseLog:
+  represents: storage for interactions with a GPT model
+  use_for: recording and tracking the history of requests and responses between a
+    user and a GPT model
+NameFunctionCallChoiceStrategy:
+  represents: specific strategy for making choices based on named function calls
+  use_for: situations where decisions should follow predefined functions with identifiable
+    names

@@ -1,0 +1,3 @@
+FinishReasonChoiceStrategy:
+  represents: A class for determining why a process should conclude.
+  use_for: Decision-making in processes requiring a conclusion based on set criteria.

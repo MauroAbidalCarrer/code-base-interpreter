@@ -1,0 +1,3 @@
+ChoiceStrategy:
+  represents: decision-making pathway
+  use_for: guided actions during varied choice scenarios

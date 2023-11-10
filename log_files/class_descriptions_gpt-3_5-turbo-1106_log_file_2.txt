@@ -1,0 +1,40 @@
+-NameFunctionCallChoiceStrategy: 
+	This class represents the strategy for handling the 'function_call' choice in the GPT response.
+	It supports the execution of function calls based on the specified function name and its arguments.
+	The execute method extracts the function name and arguments from the delta attribute and sends them to the bot backend for execution.
+	If the function name is 'python', it handles hallucinatory function calls and extracts the Python code from the arguments, enabling its execution.
+	Once executed, the result is added to the bot's conversation history for display to the user.
+-FinishReasonChoiceStrategy: 
+	This class handles the 'finish_reason' choice strategy in the response parsing process.
+	It checks for the 'finish_reason' key in the response delta, and executes the choice strategy for handling the conversation finish reason, such as new input or function call.
+	It is responsible for updating the conversation history and deciding whether the conversation should exit or not.
+-ContentChoiceStrategy: 
+	This class is responsible for handling the 'content' key in GPT-3.5 response choices.
+	It adds the content field to the message history in the bot backend.
+	If the content is not null, it adds the content to the conversation.
+	If null, it proceeds to the next strategy.
+-RoleChoiceStrategy: 
+	Handles the 'role' choice from the GPT-3 response and executes the corresponding action, setting the assistant role name in the conversation history.
+-ArgumentsFunctionCallChoiceStrategy: 
+	This class represents a strategy for handling the 'function_call' key in a GPT response delta.
+	It provides a method 'execute' that adds function arguments to the bot's backend and updates the bot's history.
+-GPTResponseLog: 
+	This class stores the response log for GPT-3 interactions.
+	It maintains fields such as the assistant role name, content, function name, function argument string, finish reason, and bot history.
+	It also provides methods to update and reset these log values, as well as manage the bot history.
+	The class is used to manage and keep track of GPT-3 responses during the conversation.
+-JupyterKernel: 
+	The JupyterKernel class creates and manages a Jupyter kernel for executing Python code.
+	It provides a method for executing code, fetching output, and restarting the kernel.
+	The class also handles file management within the Jupyter environment and ensures a clean working directory for each execution.
+-BotBackend: 
+	The BotBackend class provides a backend for the code interpretation process.
+	It handles the execution of user-provided code and manages the conversation history.
+	The bot is capable of adding text and file messages to the conversation, restarting the conversation, undoing file uploads, and providing bot responses based on user input.
+	Additionally, it handles the selection of the GPT model, refreshes file displays, and handles the processing of chat completions from the OpenAI API.
+-ChoiceHandler: 
+	The ChoiceHandler class is responsible for handling different strategies based on the choice obtained from the GPT response.
+	It contains methods for executing the appropriate strategy based on the choice and updating the conversation history.
+-ChoiceStrategy: 
+	The ChoiceStrategy class represents a strategy pattern used to handle different types of processing tasks based on a particular choice.
+	It contains subclasses for role, content, function call, and finish reason choices, with each subclass being responsible for executing specific actions based on the choice provided.
