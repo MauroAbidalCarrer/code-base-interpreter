@@ -1,0 +1,52 @@
+bot_backend.py:
+  BotBackend: &id001
+    BotBackend:
+      represents: the logic and state management of bot operations
+      use_for: handling bot activities and decision-making processes
+    ChoiceStrategy:
+      represents: an abstraction for selecting options based on criteria
+      use_for: making decisions in uncertain or multi-option scenarios
+    GPTResponseLog:
+      represents: a record of interactions with GPT models
+      use_for: tracking and analyzing model conversations
+    JupyterKernel:
+      represents: an interface to the Jupyter computational environment
+      use_for: executing and managing notebook cells within a Jupyter instance
+    RoleChoiceStrategy:
+      represents: a specialized ChoiceStrategy for role-based selections
+      use_for: assigning roles or responsibilities within a system
+  GPTResponseLog: *id001
+functional.py: {}
+jupyter_backend.py:
+  JupyterKernel: *id001
+response_parser.py:
+  ArgumentsFunctionCallChoiceStrategy: &id002
+    ArgumentsFunctionCallChoiceStrategy:
+      represents: A strategy for deciding what arguments to pass to a function call.
+      use_for: Providing the precise arguments needed for a function depending on
+        the situation or context.
+    ChoiceHandler:
+      represents: A component that manages the application of various choice strategies
+        to make decisions.
+      use_for: Handling and orchestrating the selection and application of different
+        choice strategies within a system.
+    ContentChoiceStrategy:
+      represents: A strategy for selecting content based on certain criteria or conditions.
+      use_for: Determining the most appropriate content to deliver in a given context.
+    FinishReasonChoiceStrategy:
+      represents: A strategy for determining the reason why a process or task should
+        finish.
+      use_for: Identifying the appropriate moment or condition to terminate an ongoing
+        procedure.
+    NameFunctionCallChoiceStrategy:
+      represents: A strategy for choosing function names based on a set of rules or
+        preferences.
+      use_for: Selecting the correct function name to call in a dynamic or configurable
+        execution flow.
+  ChoiceHandler: *id002
+  ChoiceStrategy: *id001
+  ContentChoiceStrategy: *id002
+  FinishReasonChoiceStrategy: *id002
+  NameFunctionCallChoiceStrategy: *id002
+  RoleChoiceStrategy: *id001
+web_ui.py: {}

@@ -1,0 +1,40 @@
+bot_backend.py:
+  BotBackend:
+    represents: The server-side processing component for bot operations.
+    use_for: Handling requests, managing data flow, and communicating with the front
+      end.
+  GPTResponseLog:
+    represents: A historical record of interactions between users and the GPT model.
+    use_for: Tracking and analyzing communication sequences with the AI, for reference
+      or review.
+functional.py: {}
+jupyter_backend.py:
+  JupyterKernel:
+    represents: An interfacing layer for executing notebook code cells within a Jupyter
+      environment.
+    use_for: Running code snippets in an interactive computing session.
+response_parser.py:
+  ArgumentsFunctionCallChoiceStrategy:
+    represents: A strategy for determining argument selection in function calls.
+    use_for: Choosing appropriate arguments for function calls.
+  ChoiceHandler:
+    represents: An intermediary for handling various choice strategies.
+    use_for: Directing choice strategy usage within code execution.
+  ChoiceStrategy:
+    represents: An algorithmic policy for selecting among multiple options.
+    use_for: Decision-making processes within the system where multiple outcomes are
+      possible.
+  ContentChoiceStrategy:
+    represents: A strategy pattern for content decision-making.
+    use_for: Selecting optimal content based on context.
+  FinishReasonChoiceStrategy:
+    represents: Strategic logic for concluding processes.
+    use_for: Deciding when and why to terminate a process.
+  NameFunctionCallChoiceStrategy:
+    represents: A strategy for choosing function call names.
+    use_for: Naming functions contextually within code logic.
+  RoleChoiceStrategy:
+    represents: A specialized form of ChoiceStrategy for assigning roles or responsibilities.
+    use_for: Deterministic or probabilistic role allocation in multi-agent systems
+      or games.
+web_ui.py: {}

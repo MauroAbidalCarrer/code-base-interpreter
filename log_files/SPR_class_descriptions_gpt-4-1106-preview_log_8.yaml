@@ -1,0 +1,57 @@
+bot_backend.py:
+  BotBackend: &id001
+    BotBackend:
+      represents: the interface layer that connects the GPT model with various platforms
+      use_for: facilitating communication between the user's platform and the model
+    ChoiceStrategy:
+      represents: an abstraction for decision-making strategies within a system
+      use_for: implementing different approaches to select among multiple options
+    GPTResponseLog:
+      represents: a record-keeper for interactions with the GPT model
+      use_for: tracking, storing, and analyzing model responses for later review or
+        debug
+    JupyterKernel:
+      represents: an interface for running notebook cells within a Jupyter environment
+      use_for: executing and managing Jupyter notebook commands
+    RoleChoiceStrategy:
+      represents: a specialized choice strategy that considers different roles in
+        decision-making
+      use_for: decisions where roles and responsibilities influence the choice
+  GPTResponseLog: *id001
+functional.py: {}
+jupyter_backend.py:
+  JupyterKernel: *id001
+response_parser.py:
+  ArgumentsFunctionCallChoiceStrategy: &id002
+    ArgumentsFunctionCallChoiceStrategy:
+      represents: ArgumentsFunctionCallChoiceStrategy offers a methodology for choosing
+        arguments in function calls to optimize code clarity and function usage.
+      use_for: Employ when designing function interfaces, determining argument order,
+        or improving code maintainability through effective argument selection.
+    ChoiceHandler:
+      represents: ChoiceHandler acts as a controller for managing multiple choice
+        strategies, streamlining decision-making across varied scenarios.
+      use_for: Deploy in systems requiring coordinated decision-making, integrating
+        multiple choice strategies, or in frameworks that support modular choice handling.
+    ContentChoiceStrategy:
+      represents: ContentChoiceStrategy provides a decision-making framework for content
+        selection in interactive elements or dynamic systems.
+      use_for: Apply when selecting content for display or output, adapting to user
+        preferences, or responding to system state changes.
+    FinishReasonChoiceStrategy:
+      represents: FinishReasonChoiceStrategy encapsulates the logic to determine the
+        conditions that complete or terminate a process or action in a system.
+      use_for: Implement when coding exit points, establishing completion criteria,
+        or handling termination conditions in processes or workflows.
+    NameFunctionCallChoiceStrategy:
+      represents: NameFunctionCallChoiceStrategy guides the selection process for
+        naming function calls, emphasizing readability and consistency.
+      use_for: Use when generating code, documenting functions, or creating APIs that
+        require clear and intuitive function names.
+  ChoiceHandler: *id002
+  ChoiceStrategy: *id001
+  ContentChoiceStrategy: *id002
+  FinishReasonChoiceStrategy: *id002
+  NameFunctionCallChoiceStrategy: *id002
+  RoleChoiceStrategy: *id001
+web_ui.py: {}

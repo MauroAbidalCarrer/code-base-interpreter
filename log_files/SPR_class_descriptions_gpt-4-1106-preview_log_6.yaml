@@ -1,0 +1,70 @@
+bot_backend.py:
+  BotBackend: &id001
+    BotBackend:
+      represents: The core logic of the chatbot functionality, handling input/output
+        with the GPT model.
+      use_for: Processing user queries and generating responses using the GPT model.
+    ChoiceStrategy:
+      represents: An abstraction for decision-making strategies in various scenarios.
+      use_for: Implementing different algorithms for choice selection in response
+        to user inputs or system events.
+    GPTResponseLog:
+      represents: A record of interactions between the user and the GPT model.
+      use_for: Storing and retrieving past responses for analysis or debugging.
+    JupyterKernel:
+      represents: An interface to interact programmatically with the Jupyter kernels,
+        responsible for executing notebook cells.
+      use_for: Running and managing code cells in Jupyter notebooks through external
+        commands.
+    RoleChoiceStrategy:
+      represents: A specialized choice strategy focused on role-based decision making.
+      use_for: Determining responses or actions based on predefined roles within a
+        system.
+  GPTResponseLog: *id001
+functional.py: {}
+jupyter_backend.py:
+  JupyterKernel: *id001
+response_parser.py:
+  ArgumentsFunctionCallChoiceStrategy: &id002
+    ArgumentsFunctionCallChoiceStrategy:
+      represents: "ArgumentsFunctionCallChoiceStrategy manages the selection and ordering\
+        \ of arguments in a function call, focused on the function\u2019s expected\
+        \ behavior and the parameters' significance."
+      use_for: Utilize ArgumentsFunctionCallChoiceStrategy when it's necessary to
+        define which arguments to pass and in what order to a function, considering
+        the best practice and function design.
+    ChoiceHandler:
+      represents: ChoiceHandler is a high-level construct that interprets and manages
+        different choice strategies to facilitate the decision-making process across
+        various aspects of the system.
+      use_for: ChoiceHandler is ideal for situations that require orchestration of
+        multiple choice strategies to maintain coherence and efficiency in decisions
+        that affect system behavior.
+    ContentChoiceStrategy:
+      represents: ContentChoiceStrategy encapsulates the logic for selecting the content
+        that a system will provide or act upon, typically based on user preferences,
+        history, and context.
+      use_for: ContentChoiceStrategy should be used when the code needs to determine
+        what content to display or use next, especially when there are multiple possibilities
+        and the choice is not trivial.
+    FinishReasonChoiceStrategy:
+      represents: FinishReasonChoiceStrategy determines the reasons for finishing
+        a process or task, which can inform a user of the outcome or decide on the
+        next steps after completion.
+      use_for: FinishReasonChoiceStrategy is suitable for scenarios where the system
+        needs to conclude operations and inform users or other system components of
+        the completion and its reasons.
+    NameFunctionCallChoiceStrategy:
+      represents: NameFunctionCallChoiceStrategy deals with the decision-making process
+        regarding naming a function call, which might involve conforming to naming
+        conventions, readability, and contextual appropriateness.
+      use_for: Employ NameFunctionCallChoiceStrategy when the code requires naming
+        function calls in a consistent and contextually relevant manner, to ensure
+        maintainability and clarity in codebase functions and methods.
+  ChoiceHandler: *id002
+  ChoiceStrategy: *id001
+  ContentChoiceStrategy: *id002
+  FinishReasonChoiceStrategy: *id002
+  NameFunctionCallChoiceStrategy: *id002
+  RoleChoiceStrategy: *id001
+web_ui.py: {}

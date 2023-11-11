@@ -1,0 +1,39 @@
+bot_backend.py:
+  BotBackend:
+    BotBackend:
+      represents: mediation layer between users and underlying AI models
+      use_for: managing interactions, processing commands, executing AI tasks
+functional.py: {}
+jupyter_backend.py: {}
+response_parser.py:
+  ArgumentsFunctionCallChoiceStrategy: &id001
+    ArgumentsFunctionCallChoiceStrategy:
+      represents: a strategy for choosing function calls based on the arguments they
+        take
+      use_for: cases where argument compatibility or specificity is a determinant
+        for function execution
+    ChoiceHandler:
+      represents: a mechanism for managing and resolving multiple options or pathways
+        in a system
+      use_for: instances needing arbitration between different choices or the need
+        to track the decision-making process
+    ContentChoiceStrategy:
+      represents: a methodology for selecting content based on specific criteria or
+        metrics
+      use_for: situations requiring content prioritization or differentiation based
+        on given parameters
+    FinishReasonChoiceStrategy:
+      represents: a system to identify and handle the reasoning behind concluding
+        a process or task
+      use_for: scenarios that require understanding or explaining why a task or process
+        has reached completion
+    NameFunctionCallChoiceStrategy:
+      represents: a decision-making process specific to selecting suitable function
+        calls by their names
+      use_for: circumstances where function naming conventions are crucial for the
+        correct operation or readability
+  ChoiceHandler: *id001
+  ContentChoiceStrategy: *id001
+  FinishReasonChoiceStrategy: *id001
+  NameFunctionCallChoiceStrategy: *id001
+web_ui.py: {}

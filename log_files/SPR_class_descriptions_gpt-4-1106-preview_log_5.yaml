@@ -1,0 +1,27 @@
+bot_backend.py:
+  BotBackend: &id001
+    BotBackend:
+      represents: The infrastructure supporting the bot's processing capabilities.
+      use_for: Managing interactions between the bot's logic and data layers.
+    ChoiceStrategy:
+      represents: Algorithm to choose between different options.
+      use_for: Deciding on actions or responses when multiple possibilities exist.
+    JupyterKernel:
+      represents: Interface to interact with a Jupyter notebook kernel.
+      use_for: Executing code snippets and managing Jupyter notebook sessions.
+    RoleChoiceStrategy:
+      represents: Specific choice strategy based on roles within a context.
+      use_for: Selecting actions or responses appropriate to the bot's current role.
+functional.py: {}
+jupyter_backend.py:
+  JupyterKernel: *id001
+response_parser.py:
+  ChoiceStrategy: *id001
+  ContentChoiceStrategy:
+    ContentChoiceStrategy:
+      represents: ContentChoiceStrategy represents a decision-making process to select
+        content based on specific criteria.
+      use_for: Use ContentChoiceStrategy when needing to choose content under conditions
+        or constraints in the codebase.
+  RoleChoiceStrategy: *id001
+web_ui.py: {}

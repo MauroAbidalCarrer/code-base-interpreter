@@ -1,0 +1,56 @@
+bot_backend.py:
+  BotBackend: &id001
+    BotBackend:
+      represents: The processing mechanism behind bot interactions.
+      use_for: Handling logic, state management, and integration of bot functionalities.
+    ChoiceStrategy:
+      represents: A framework for decision-making processes in various contexts.
+      use_for: Implementing the logic to select options based on given criteria.
+    GPTResponseLog:
+      represents: A journal of interactions between the GPT and users.
+      use_for: Storing and retrieving records of GPT conversations for analysis and
+        review.
+    JupyterKernel:
+      represents: An interface for executing code snippets in a Jupyter environment.
+      use_for: Running, managing, and retrieving results from Jupyter notebooks programmatically.
+    RoleChoiceStrategy:
+      represents: A specialization of ChoiceStrategy focused on role assignment.
+      use_for: Deciding and allocating roles within a system according to predefined
+        rules.
+  GPTResponseLog: *id001
+functional.py: {}
+jupyter_backend.py:
+  JupyterKernel: *id001
+response_parser.py:
+  ArgumentsFunctionCallChoiceStrategy: &id002
+    ArgumentsFunctionCallChoiceStrategy:
+      represents: A strategy pattern that encapsulates the algorithm for selecting
+        function calls based on their arguments.
+      use_for: When the function call selection is dependent on the types or values
+        of the arguments passed.
+    ChoiceHandler:
+      represents: A class that handles the application of different choice strategies
+        and manages decision making processes.
+      use_for: When managing multiple choice strategies and needing to apply them
+        to make decisions across various contexts.
+    ContentChoiceStrategy:
+      represents: A strategy pattern that encapsulates the algorithm for choosing
+        content.
+      use_for: When selecting content based on specific criteria and prerequisites.
+    FinishReasonChoiceStrategy:
+      represents: A strategy pattern that defines the logic for determining the reason
+        a task has finished.
+      use_for: When requiring to deduce or record why a process or operation reached
+        completion.
+    NameFunctionCallChoiceStrategy:
+      represents: A strategy pattern that encapsulates the algorithm for choosing
+        function calls by their names.
+      use_for: When distinguishing function calls in a code structure based on their
+        name identifiers.
+  ChoiceHandler: *id002
+  ChoiceStrategy: *id001
+  ContentChoiceStrategy: *id002
+  FinishReasonChoiceStrategy: *id002
+  NameFunctionCallChoiceStrategy: *id002
+  RoleChoiceStrategy: *id001
+web_ui.py: {}

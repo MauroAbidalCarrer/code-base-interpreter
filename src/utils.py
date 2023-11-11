@@ -1,7 +1,9 @@
+from typing import List, Tuple
 import openai
 import os
 import re
 import ast
+import yaml
 
 def generate_unique_filename(filename, directory_path):
     """
@@ -37,7 +39,7 @@ def generate_unique_filename(filename, directory_path):
     new_filename = f"{name}_{max_num + 1}{extension}"
     return os.path.join(directory_path, new_filename)
 
-def extract_classes_and_functions(file_path):
+def extract_classes_and_functions(source_code) -> Tuple[List[str], List[str]]:
     """
     Extracts classes and standalone functions from a given Python file.
 
@@ -47,11 +49,7 @@ def extract_classes_and_functions(file_path):
     Returns:
     tuple: A tuple containing two lists, one for classes and one for functions.
     """
-
-    with open(file_path, "r") as file:
-        source = file.read()
-        node = ast.parse(source)
-
+    node = ast.parse(source_code)
     classes = [n.name for n in node.body if isinstance(n, ast.ClassDef)]
     functions = [n.name for n in node.body if isinstance(n, ast.FunctionDef)]
 
@@ -61,7 +59,7 @@ def extract_classes_and_functions(file_path):
         if not isinstance(n, (ast.FunctionDef, ast.ClassDef)):
             start_line, start_column = n.lineno, n.col_offset
             end_line, end_column = getattr(n, "end_lineno", start_line), getattr(n, "end_col_offset", start_column)
-            main_code_lines = source.splitlines()[start_line-1:end_line]
+            main_code_lines = source_code.splitlines()[start_line-1:end_line]
             main_code_lines[-1] = main_code_lines[-1][:end_column]
             main_code.append("\n".join(main_code_lines))
 
@@ -75,9 +73,19 @@ def setup_opena_AI_key():
         openai_api_key = input("Please enter your OpenAI API key.")
     openai.api_key = openai_api_key     
 
-if __name__ == "__main__":
-    import sys
-    classes, functions, main_code_content = extract_classes_and_functions(sys.argv[1])
-    print("classes:", classes)
-    print("functions:", functions)
-    print("main_code_content:", main_code_content)
+class CustomDumper(yaml.Dumper):
+    def write_line_break(self, data=None):
+        super().write_line_break(data)
+
+        # Only add the extra line break at the root level
+        if len(self.indents) == 1:
+            super().write_line_break()
+
+def get_modules_contents(codebase_dir):
+    module_files = [file for file in os.listdir(codebase_dir) if file.endswith(".py")]
+    modules_contents = {}
+    for module_file_name in module_files:
+        with open(os.path.join(codebase_dir, module_file_name), 'r') as module_file:
+            modules_contents[module_file_name] = module_file.read()
+    return modules_contents
+

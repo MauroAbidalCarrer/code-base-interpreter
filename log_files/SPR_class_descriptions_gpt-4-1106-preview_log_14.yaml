@@ -1,0 +1,51 @@
+bot_backend.py:
+  BotBackend:
+    represents: The primary backend handler integrating multiple components like JupyterKernel,
+      GPT model selection, and file management, orchestrating the bot's processing
+      environment.
+    use_for: Main execution point for all backend operations, managing the bot's environment,
+      API configurations, and facilitating the state throughout interactions.
+  GPTResponseLog:
+    represents: A log structure capturing the AI assistant's activity during a session,
+      recording roles, functions, content, and completion statuses.
+    use_for: Logging and tracking the history of interactions, roles assumed, code
+      execution, and responses within a session.
+
+functional.py: {}
+
+jupyter_backend.py:
+  JupyterKernel:
+    represents: An interface for executing Python code within a Jupyter environment,
+      managing kernel sessions and handling code execution requests.
+    use_for: Executing user code snippets, managing kernel status, and capturing terminal
+      output or image data from executed Python code.
+
+response_parser.py:
+  ArgumentsFunctionCallChoiceStrategy:
+    represents: handling function call arguments
+    use_for: processing arguments for function calls
+  ChoiceHandler:
+    represents: orchestrator for applying multiple strategies
+    use_for: selecting and executing the appropriate strategy for given context
+  ChoiceStrategy:
+    represents: An abstraction for decision-making strategies applied during response
+      parsing and handling.
+    use_for: Implementing various strategies to respond to different elements of the
+      bot's navigation through conversation, underlying system messages, and code
+      execution.
+  ContentChoiceStrategy:
+    represents: decision logic for content changes in response
+    use_for: updating response content
+  FinishReasonChoiceStrategy:
+    represents: logic flow based on reason for conclusion
+    use_for: controlling conversation flow based on completion reason
+  NameFunctionCallChoiceStrategy:
+    represents: decision making for calling functions by name
+    use_for: initiating calls to backend functions
+  RoleChoiceStrategy:
+    represents: A specific strategy aimed at handling role changes in the conversation
+      flow or system setup.
+    use_for: Adjusting to role switch requests or setups in the latent conversation
+      state, as driven by user inputs or system commands.
+
+web_ui.py: {}

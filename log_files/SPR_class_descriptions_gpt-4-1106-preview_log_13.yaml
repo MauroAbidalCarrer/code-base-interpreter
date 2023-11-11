@@ -1,0 +1,30 @@
+bot_backend.py:
+  BotBackend:
+    represents: central processing hub for bot's operations
+    use_for: handling bot logic, bot state management, API interactions
+functional.py: {}
+jupyter_backend.py:
+  JupyterKernel:
+    represents: interface for executing code in Jupyter notebooks
+    use_for: running code snippets, fetching execution results from Jupyter sessions
+response_parser.py:
+  ArgumentsFunctionCallChoiceStrategy:
+    represents: A strategy to determine arguments for a function call.
+    use_for: Selecting suitable arguments when constructing function calls from user
+      input.
+  ChoiceHandler:
+    represents: An intermediary that handles the selection and application of different
+      strategies.
+    use_for: Managing various choice strategies and applying them to make decisions
+      in the code workflow.
+  ContentChoiceStrategy:
+    represents: A strategy for choosing content based on some criteria.
+    use_for: Selecting which content to present to a user among multiple options.
+  FinishReasonChoiceStrategy:
+    represents: A strategy to decide the reason for finishing a process or action.
+    use_for: Determining why an action or process should be terminated.
+  NameFunctionCallChoiceStrategy:
+    represents: A strategy to choose function names for a possible function call.
+    use_for: Deciding on a function name when translating natural language instructions
+      into code.
+web_ui.py: {}

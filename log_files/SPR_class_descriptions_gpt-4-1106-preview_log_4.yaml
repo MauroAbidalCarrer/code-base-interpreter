@@ -1,0 +1,63 @@
+bot_backend.py:
+  BotBackend: &id001
+    BotBackend:
+      represents: the central processing system for a bot, orchestrating various components
+        such as input understanding, response generation, and state management
+      use_for: implementing the core functionalities of a chatbot or virtual assistant
+    ChoiceStrategy:
+      represents: an algorithmic approach to making selections from a set of options
+        based on defined criteria or heuristics
+      use_for: decision processes in systems that require choosing among multiple
+        possibilities, like picking a response or an action
+    GPTResponseLog:
+      represents: a record of interactions and responses between the user and the
+        GPT model
+      use_for: tracking dialogue history, debugging conversations, and analyzing response
+        patterns
+    JupyterKernel:
+      represents: an interface to communicate with Jupyter notebooks, facilitating
+        the execution of notebook cells and retrieval of outputs
+      use_for: integration of Jupyter notebooks within applications, automation of
+        notebook execution, and extraction of computational results
+    RoleChoiceStrategy:
+      represents: a specialized form of ChoiceStrategy that takes into account different
+        roles or personas when making a choice
+      use_for: systems with multifaceted personalities or roles, to tailor responses
+        or actions according to the specific role being portrayed
+  GPTResponseLog: *id001
+functional.py: {}
+jupyter_backend.py:
+  JupyterKernel: *id001
+response_parser.py:
+  ArgumentsFunctionCallChoiceStrategy: &id002
+    ArgumentsFunctionCallChoiceStrategy:
+      represents: A mechanism for choosing appropriate arguments for function calls.
+      use_for: When deciding on the most suitable arguments to pass to a function
+        during automated code construction or optimization.
+    ChoiceHandler:
+      represents: An entity that orchestrates the selection and application of various
+        choice strategies.
+      use_for: When managing a set of strategies for making selections and need a
+        centralized control mechanism.
+    ContentChoiceStrategy:
+      represents: A decision-making framework for selecting content based on provided
+        criteria.
+      use_for: When needing to decide which contents to show, present, or use in a
+        particular context.
+    FinishReasonChoiceStrategy:
+      represents: An approach to understand and categorize reasons for completing
+        or terminating a process.
+      use_for: When analyzing process completion to discern patterns or to automate
+        decision-making for ending tasks.
+    NameFunctionCallChoiceStrategy:
+      represents: A strategy to determine the best function call name based on certain
+        requirements.
+      use_for: When identifying the optimal function call name in code generation
+        or analysis tasks.
+  ChoiceHandler: *id002
+  ChoiceStrategy: *id001
+  ContentChoiceStrategy: *id002
+  FinishReasonChoiceStrategy: *id002
+  NameFunctionCallChoiceStrategy: *id002
+  RoleChoiceStrategy: *id001
+web_ui.py: {}
