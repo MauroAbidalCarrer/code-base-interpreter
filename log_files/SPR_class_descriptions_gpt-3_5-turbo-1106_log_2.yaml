@@ -1,0 +1,38 @@
+bot_backend.py:
+  BotBackend:
+    represents: Represents the main working backend of the chatbot, including handling
+      user queries, executing code, managing Jupyter kernel, and managing chat conversation.
+    use_for: Handling and processing user queries, managing conversations, and executing
+      code.
+  GPTResponseLog:
+    represents: Represents the logging of GPT-3.5 responses and interactions with
+      the chatbot.
+    use_for: Storing GPT-3.5 chat log, response to user queries, and metadata.
+
+functional.py: {}
+
+jupyter_backend.py:
+  JupyterKernel:
+    represents: Represents the interaction and communication with the Jupyter kernel
+      to execute Python code and retrieve output.
+    use_for: Executing Python code and retrieving terminal output, including text,
+      image, and HTML output.
+
+response_parser.py:
+  ArgumentsFunctionCallChoiceStrategy: {}
+  ChoiceHandler: {}
+  ChoiceStrategy:
+    represents: Represents a strategy for selecting and executing the appropriate
+      action based on the response choices from GPT-3.5.
+    use_for: Choosing and executing the correct action based on GPT-3.5 response choices.
+  ContentChoiceStrategy:
+    represents: Represents the strategy for choosing the content of the bot's response.
+    use_for: Adding text content to the response message.
+  FinishReasonChoiceStrategy: {}
+  NameFunctionCallChoiceStrategy: {}
+  RoleChoiceStrategy:
+    represents: Represents a strategy for selecting and setting the assistant role
+      based on GPT-3.5 response choices.
+    use_for: Setting the assistant role based on GPT-3.5 response choices.
+
+web_ui.py: {}

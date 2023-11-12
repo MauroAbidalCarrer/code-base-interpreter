@@ -1,0 +1,46 @@
+bot_backend.py:
+  config_openai_api:
+    use_for: configuring the OpenAI API
+  get_config:
+    use_for: getting chat config and API access
+
+functional.py:
+  add_function_response_to_bot_history:
+    use_for: Adding the response of a function call to the bot's history for display.
+    works_by: Calling the add_function_response_to_bot_history function in response_parser.py.
+  chat_completion:
+    use_for: interacting with the GPT model to get chat responses
+  parse_json:
+    use_for: Extracting code directly from a non-standard JSON format string to handle
+      non-standard JSON output from GPT.
+    works_by: Calling the parse_json function in functional.py.
+
+jupyter_backend.py:
+  delete_color_control_char:
+    use_for: removing control characters from response
+
+response_parser.py:
+  parse_response:
+    use_for: parsing the response from GPT-3/4
+
+web_ui.py:
+  add_file:
+    use_for: Adding a file upload to the conversation history.
+  add_text:
+    use_for: Adding user text input to the conversation history.
+  bot:
+    use_for: chat completion and handling bot responses
+  get_bot_backend:
+    use_for: Getting the bot backend instance for chat operations.
+  initialization:
+    use_for: initializing the bot backend
+  refresh_file_display:
+    use_for: updating the file display in the UI
+  restart_bot_backend:
+    use_for: clearing the bot backend and restarting it
+  restart_ui:
+    use_for: restarting the UI and clearing the history
+  switch_to_gpt4:
+    use_for: Switching to a different version of the GPT model, such as GPT-4 or GPT-3.5.
+  undo_upload_file:
+    use_for: Undoing the upload of the last file.

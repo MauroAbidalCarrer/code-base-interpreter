@@ -1,0 +1,45 @@
+bot_backend.py:
+  BotBackend:
+    represents: A backend service responsible for handling conversation logic and
+      executing code. It contains the conversation history, working directory, configuration
+      for OpenAI API, and functions to manage the conversation.
+  GPTResponseLog:
+    represents: A log for managing GPT-3.5 API responses. It contains information
+      such as assistant role name, content, function name, function arguments, display
+      code block, and finish reason.
+
+functional.py: {}
+
+jupyter_backend.py:
+  JupyterKernel:
+    represents: A kernel for executing Python code. It communicates with the Jupyter
+      client and handles code execution, including extraction of outputs and handling
+      errors.
+
+response_parser.py:
+  ArgumentsFunctionCallChoiceStrategy:
+    represents: Represents a choice for adding arguments to a function call in the
+      bot backend log.
+    use_for: Adding arguments to a function call in the bot backend log based on GPT-3.5
+      completions.
+  ChoiceHandler:
+    represents: Represents a handler for making choices in the bot backend based on
+      GPT-3.5 completions.
+    use_for: Handling and executing the choices made in the bot backend based on GPT-3.5
+      completions.
+  ChoiceStrategy:
+    represents: An abstract base class for various types of strategies for making
+      choices in the conversation logic.
+  ContentChoiceStrategy:
+    represents: Represents a choice for adding content to the bot backend log.
+    use_for: Adding content to bot backend log based on GPT-3.5 completions.
+  FinishReasonChoiceStrategy:
+    represents: Represents a choice for setting the finish reason in bot backend log.
+    use_for: Setting the finish reason in the bot backend log based on GPT-3.5 completions.
+  NameFunctionCallChoiceStrategy:
+    represents: Represents a choice for calling a specific function in the bot backend.
+    use_for: Calling a specific function based on GPT-3.5 completions.
+  RoleChoiceStrategy:
+    represents: A choice strategy for managing the assistant's role in the conversation.
+
+web_ui.py: {}

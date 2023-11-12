@@ -1,0 +1,54 @@
+bot_backend.py:
+  BotBackend:
+    represents: Core component binding functionality of GPT and Jupyter kernel with
+      user interface.
+    use_for: Processing user inputs, managing code execution, and maintaining session
+      state.
+  GPTResponseLog:
+    represents: Container for tracking and managing GPT-3 assisted responses.
+    use_for: Capturing and manipulating the properties of GPT's response during interactions
+      within the system.
+
+functional.py: {}
+
+jupyter_backend.py:
+  JupyterKernel:
+    represents: Interface for executing Python code within a Jupyter kernel environment.
+    use_for: Execution of user-provided Python code and handling of both terminal
+      and image outputs.
+
+response_parser.py:
+  ArgumentsFunctionCallChoiceStrategy:
+    represents: strategy for parsing and appending the arguments for a function call
+      derived from the chat completion.
+    use_for: when function call arguments are specified and need to be prepared for
+      execution.
+  ChoiceHandler:
+    represents: Coordinator for applying various ChoiceStrategy instances to handle
+      choice deltas.
+    use_for: Applying logical flow to handle GPT choice outcomes and update session
+      state appropriately.
+  ChoiceStrategy:
+    represents: Abstract base class for different strategies of processing choice
+      deltas from GPT.
+    use_for: Implementing specific behaviors in response to choice outcomes from GPT's
+      predictions.
+  ContentChoiceStrategy:
+    represents: strategy for incorporating proposed content into the assistant's output.
+    use_for: when new content is provided for the assistant to express in its response.
+  FinishReasonChoiceStrategy:
+    represents: strategy to handle the completion of the assistant's action, including
+      function execution and output processing.
+    use_for: after the assistant completes its suggested action and needs to process
+      the outcome.
+  NameFunctionCallChoiceStrategy:
+    represents: strategy to set the function name to be called as the result of the
+      completion.
+    use_for: when a function call in the chat completion suggests a specific function
+      to execute.
+  RoleChoiceStrategy:
+    represents: strategy for handling changes to the role of the assistant within
+      the conversation.
+    use_for: when the system suggests a role change as part of dialogue modeling.
+
+web_ui.py: {}

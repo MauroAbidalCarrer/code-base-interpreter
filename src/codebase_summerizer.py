@@ -8,46 +8,60 @@ import sys
 from constants import *
 import copy
 
-def get_classes_description(classes_names, messages):
+def generate_function_call_oject(values, function_call_template):
+    function_call_object = {
+        "name": function_call_template["name"],
+        "description": function_call_template["description"],
+        "parameters": {
+            "type": "object",
+            "properties": {},
+            "required": []
+        }
+    }
+
+    for value in values:
+        fill_placeholders = lambda str: str.replace(function_call_template["placeholder"], value)
+        object_properties = copy.deepcopy(function_call_template["properties_template"])
+        object_name = value #fill_placeholders(function_call_template["property_name_template"])
+        apply_to_strings_in_place(object_properties, fill_placeholders)
+        function_call_object["parameters"]["properties"][object_name] = object_properties
+        function_call_object["parameters"]["required"].append(object_name)
+
+    return function_call_object
+
+def get_callables_description(callables_names, describe_callable_FC_template, messages):
     # Initialize description object 
-    json_classes_descriptions = {}
+    callables_descriptions = {}
 
     # As long as their are classes to describe, call the API to get the descriptions.
-    while len(classes_names) != 0:
-        # Create function call description
-        describe_classes_obj = copy.deepcopy(DESCRIBE_CLASS_OBJ)
-        for class_name in classes_names:
-            describe_classes_obj["parameters"]["properties"][class_name] = {
-                "type": "object", 
-                "properties" : {
-                    "represents": {"type": "string", "description": f"description of what the {class_name} represents in the context of the codebase."},
-                    "use_for": {"type": "string", "description": f"List of the case(s) and context(s) (can be just one case and context) in which the coder should use the class {class_name}."},
-                }
-            }
+    while len(callables_names) != 0:
+        callables_names_slice = callables_names[:MAX_DESCRIPTIONS_IN_ONE_SHOT]
+        describe_callables_FC = generate_function_call_oject(
+            callables_names_slice,
+            describe_callable_FC_template
+        )
             
         # Get completion
         response_completion = openai.ChatCompletion.create(
             model=GPT_MODEL,
             messages=messages,
-            functions=[describe_classes_obj],
-            function_call={"name": "describe_code_base_classes"}
+            functions=[describe_callables_FC],
+            function_call={"name": describe_callable_FC_template["name"]}
             )
             
         # convert completion into json object
         response_msg = response_completion.choices[0].message
         str_arguments = response_msg.function_call.arguments
-        json_classes_descriptions.update(json.loads(str_arguments))
+        callables_descriptions.update(json.loads(str_arguments))
 
         # Remove all the classes that have been described
-        classes_names = [elem for elem in classes_names if elem not in list(json_classes_descriptions.keys())]
+        callables_names = [elem for elem in callables_names if elem not in list(callables_descriptions.keys())]
 
         # Debug
-        print(yaml.dump(json_classes_descriptions, Dumper=CustomDumper))
-        if len(classes_names) != 0:
-            print(f"Warning, the classes {classes_names} have not been described.", file=sys.stderr)
-            print("Rerunning the ChatCompletion...", file=sys.stderr)
+        print("===========================================CLASSES DESCRIPTIONS")
+        print(yaml.dump(json.loads(str_arguments), Dumper=CustomDumper))
 
-    return json_classes_descriptions
+    return callables_descriptions
 
 
 if __name__ == "__main__":
@@ -60,12 +74,12 @@ if __name__ == "__main__":
     functions_to_module_dict = {}
     main_code_to_module_dict = {}
     for module_name, module_content in modules.items():
-        classes_names, functions, main_code = extract_classes_and_functions(module_content)
+        classes_names, functions, main_block = extract_classes_and_functions(module_content)
         for class_name in classes_names:
             classes_to_module_dict[class_name] = module_name
         for function in functions:
             functions_to_module_dict[function] = module_name
-        if main_code:
+        if main_block:
             main_code_to_module_dict[class_name] = module_name
         messages.append({"role": "system", "content": f"# {module_name}:\n{module_content}"})
 
@@ -74,17 +88,22 @@ if __name__ == "__main__":
     for file_name in list(modules.keys()):
         cb_description[file_name] = {}
 
-    # Compress codebase into SPRs
-    classes_names = list(classes_to_module_dict.keys())
-    for class_name_i in range(0, len(classes_names), MAX_DESCRIPTIONS_IN_ONE_SHOT):
-        # Obtain classes desciptions
-        classes_names_slice = classes_names[class_name_i:class_name_i + MAX_DESCRIPTIONS_IN_ONE_SHOT]
-        classes_descriptions = get_classes_description(classes_names_slice, messages)
+    # Get function calling object templates
+    with open(FUNCTION_CALLING_TEMPLATES_PATH, 'r') as funciton_calling_templates_file:
+        funciton_calling_templates = yaml.safe_load(funciton_calling_templates_file)
         
-        # Store classes descriptions
-        for class_name in classes_names_slice:
-            module_name = classes_to_module_dict[class_name]
-            cb_description[module_name][class_name] = classes_descriptions[class_name]
+    # Get callables summerazitions
+    def summarize_callables(callables_to_module, describe_callable_FC_template):
+        callables_names = list(callables_to_module.keys())
+        callables_descriptions = get_callables_description(callables_names, describe_callable_FC_template, messages)
+            
+        # Store callables descriptions
+        for callable_name in callables_descriptions:
+            module_name = callables_to_module[callable_name]
+            cb_description[module_name][callable_name] = callables_descriptions[callable_name]
+    
+    # summarize_callables(classes_to_module_dict, funciton_calling_templates["describe_classes"])
+    summarize_callables(functions_to_module_dict, funciton_calling_templates["describe_functions"])
 
     # Convert cb description object to YAML formatted string    
     cb_description = yaml.dump(cb_description, Dumper=CustomDumper)

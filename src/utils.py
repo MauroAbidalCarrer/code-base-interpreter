@@ -39,7 +39,7 @@ def generate_unique_filename(filename, directory_path):
     new_filename = f"{name}_{max_num + 1}{extension}"
     return os.path.join(directory_path, new_filename)
 
-def extract_classes_and_functions(source_code) -> Tuple[List[str], List[str]]:
+def extract_classes_and_functions(source_code) -> Tuple[List[str], List[str], str]:
     """
     Extracts classes and standalone functions from a given Python file.
 
@@ -63,9 +63,9 @@ def extract_classes_and_functions(source_code) -> Tuple[List[str], List[str]]:
             main_code_lines[-1] = main_code_lines[-1][:end_column]
             main_code.append("\n".join(main_code_lines))
 
-    main_code_content = "\n".join(main_code)
+    main_block = "\n".join(main_code)
 
-    return classes, functions, main_code_content
+    return classes, functions, main_block
 
 def setup_opena_AI_key():
     openai_api_key = os.getenv("OPENAI_API_KEY")
@@ -88,4 +88,27 @@ def get_modules_contents(codebase_dir):
         with open(os.path.join(codebase_dir, module_file_name), 'r') as module_file:
             modules_contents[module_file_name] = module_file.read()
     return modules_contents
+
+def apply_to_strings_in_place(obj, func):
+    """
+    Recursively apply a function to all string elements of a composite data structure in place.
+
+    :param obj: The composite data structure (list, dictionary, or tuple).
+    :param func: The function to apply to strings.
+    """
+    if isinstance(obj, dict):
+        for key, value in obj.items():
+            if isinstance(value, str):
+                obj[key] = func(value)
+            else:
+                apply_to_strings_in_place(value, func)
+    elif isinstance(obj, list):
+        for i in range(len(obj)):
+            if isinstance(obj[i], str):
+                obj[i] = func(obj[i])
+            else:
+                apply_to_strings_in_place(obj[i], func)
+    elif isinstance(obj, tuple):
+        # Tuples are immutable, so we need to recreate them
+        obj[:] = tuple(apply_to_strings_in_place(list(obj), func))
 

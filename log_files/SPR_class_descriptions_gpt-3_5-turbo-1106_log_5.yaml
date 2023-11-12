@@ -1,0 +1,49 @@
+bot_backend.py:
+  BotBackend:
+    represents: Represents the backend response system that interacts with the OpenAI
+      API and Jupyter kernel to execute Python code and manage the dialog flow.
+    use_for: Managing text input, file input, restarting the conversation, handling
+      GPT responses, and backend service logic.
+  GPTResponseLog:
+    represents: Represents a log object containing the interaction between the user
+      and the bot, as well as the history of responses and functions executed by the
+      bot.
+    use_for: Tracking the state of the conversation and managing the function calls.
+
+functional.py: {}
+
+jupyter_backend.py:
+  JupyterKernel:
+    represents: A module for interacting with a Jupyter kernel to execute Python code
+      and retrieve the terminal output. The kernel remains active after execution,
+      retaining all variables in memory.
+    use_for: Executing Python code and interfacing with the Jupyter kernel.
+
+response_parser.py:
+  ArgumentsFunctionCallChoiceStrategy:
+    represents: Represents the choice of function arguments in the context of the
+      codebase.
+    use_for: Parsing the function arguments of a function call.
+  ChoiceHandler:
+    represents: Represents the handling of choices in the context of the codebase.
+    use_for: Handling different types of choices in the conversation.
+  ChoiceStrategy:
+    represents: A strategy for handling the choices and deltas in parsing the GPT-3.5
+      or GPT-4 response.
+    use_for: Parsing the GPT-3.5 and GPT-4 response and executing the specified strategies
+      based on the choices and deltas.
+  ContentChoiceStrategy:
+    represents: A choice strategy for adding content to the GPT response.
+    use_for: Adding content to the GPT response based on the specified delta.
+  FinishReasonChoiceStrategy:
+    represents: Represents the choice of the finish reason in the context of the codebase.
+    use_for: Determining the reason for finishing a conversation or execution.
+  NameFunctionCallChoiceStrategy:
+    represents: A choice strategy for handling function calls based on the specified
+      delta.
+    use_for: Handling function calls based on the specified delta in the GPT response.
+  RoleChoiceStrategy:
+    represents: A choice strategy for setting the role of the assistant.
+    use_for: Setting the role of the assistant based on the specified delta.
+
+web_ui.py: {}

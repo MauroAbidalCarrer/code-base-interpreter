@@ -1,0 +1,45 @@
+bot_backend.py:
+  BotBackend:
+    represents: It represents the backend for the AI code interpreter.
+    use_for: Executing Python code, managing Jupyter kernels, and handling interactions
+      with the OpenAI API.
+  GPTResponseLog:
+    represents: It represents the log of GPT-3.5 responses and related information.
+    use_for: Storing and tracking the content, function calls, and the finish reason
+      of GPT-3.5 responses.
+
+functional.py: {}
+
+jupyter_backend.py:
+  JupyterKernel:
+    represents: It represents a Jupyter kernel instance for executing Python code
+      and retrieving output.
+    use_for: Executing Python code and managing the Jupyter kernel environment.
+
+response_parser.py:
+  ArgumentsFunctionCallChoiceStrategy:
+    represents: Class for managing the selection of function arguments.
+    use_for: Handling the arguments of a function call.
+  ChoiceHandler:
+    represents: Class for managing the choice of multiple strategies.
+    use_for: Handling different strategy choices in the conversation.
+  ChoiceStrategy:
+    represents: It represents a choice strategy for handling different types of decision
+      making in the bot backend.
+    use_for: Handling various decision-making processes in the bot backend such as
+      role selection, content addition, function call handling, etc.
+  ContentChoiceStrategy:
+    represents: Class for managing content selection in the conversation.
+    use_for: Adding text content to the conversation.
+  FinishReasonChoiceStrategy:
+    represents: Class for managing the end reason of a conversation.
+    use_for: 'Deciding why the conversation ended: new input, function call, etc.'
+  NameFunctionCallChoiceStrategy:
+    represents: Class for managing the selection of a function to call.
+    use_for: Executing code and providing its output.
+  RoleChoiceStrategy:
+    represents: It represents a decision-making strategy related to role selection
+      in the bot backend.
+    use_for: Selecting the assistant's role based on the delta in the choice object.
+
+web_ui.py: {}

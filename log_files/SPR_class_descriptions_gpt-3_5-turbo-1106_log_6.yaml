@@ -1,0 +1,65 @@
+bot_backend.py:
+  BotBackend:
+    represents: BotBackend is a class that represents the backend logic and functionality
+      for an AI code interpreter. It allows the user to execute Python code, manage
+      conversation state, and interact with the OpenAI GPT model for chat completion.
+    use_for: Interpreting and executing Python code, managing conversation state,
+      and communicating with the OpenAI GPT model.
+  GPTResponseLog:
+    represents: The GPTResponseLog class represents the log of GPT-3.5 responses and
+      the corresponding actions taken by the bot. It captures the history of the conversation,
+      including the user input, bot responses, and any other relevant events.
+    use_for: Preparing and maintaining the log of GPT-3.5 responses and bot actions
+      during a conversation.
+
+functional.py: {}
+
+jupyter_backend.py:
+  JupyterKernel:
+    represents: The JupyterKernel class represents a Jupyter kernel instance. It is
+      used to execute Python code, retrieve the terminal output, and manage the Jupyter
+      kernel environment.
+    use_for: Executing Python code, retrieving terminal output, and managing the Jupyter
+      kernel environment.
+
+response_parser.py:
+  ArgumentsFunctionCallChoiceStrategy:
+    represents: Represents the process of providing arguments for a function call
+      within the context of the codebase.
+    use_for: Using the class ArgumentsFunctionCallChoiceStrategy is necessary to emulate
+      the function arguments and handle the function response in the AI code interpreter.
+  ChoiceHandler:
+    represents: Represents the strategy for handling different choices within the
+      context of the codebase.
+    use_for: Using the class ChoiceHandler is necessary to handle different choices
+      and execute the corresponding strategies within the AI code interpreter.
+  ChoiceStrategy:
+    represents: The ChoiceStrategy class represents the base class for different strategies
+      used to handle various types of choices or decisions made during the conversation
+      flow. It encapsulates the logic for executing specific actions based on different
+      types of choices.
+    use_for: Handling and executing different types of choices made during the conversation
+      flow.
+  ContentChoiceStrategy:
+    represents: The ContentChoiceStrategy class represents a strategy for handling
+      content-related choices, such as adding content to the bot's response. It helps
+      manage the content of the conversation.
+    use_for: Handling content-related choices, such as adding content to the bot's
+      response during the conversation.
+  FinishReasonChoiceStrategy:
+    represents: Represents the determination of the reason for finishing an operation
+      within the context of the codebase.
+    use_for: Using the class FinishReasonChoiceStrategy is necessary to handle the
+      determination of reasons for finishing operations within the AI code interpreter.
+  NameFunctionCallChoiceStrategy:
+    represents: Represents the process of making a function call within the context
+      of the codebase.
+    use_for: Using the class NameFunctionCallChoiceStrategy is necessary to emulate
+      function calls and handle function response in the AI code interpreter.
+  RoleChoiceStrategy:
+    represents: The RoleChoiceStrategy class represents a strategy for handling role-based
+      choices, such as setting the assistant's role name in the conversation.
+    use_for: Handling role-based choices and setting the assistant's role name in
+      the conversation.
+
+web_ui.py: {}

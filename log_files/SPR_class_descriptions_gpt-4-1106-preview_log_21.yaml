@@ -1,0 +1,78 @@
+bot_backend.py:
+  config_openai_api:
+    use_for: Setting up OpenAI API with given parameters such as API key and model
+      version.
+    works_by: Assigning the OpenAI configuration properties directly.
+  get_config:
+    use_for: Fetching the current configuration such as API keys or model names.
+    works_by: Reading a JSON file containing the configuration and parsing it.
+
+functional.py:
+  add_function_response_to_bot_history:
+    use_for: updating the chat history with the result of function calls
+    works_by: appending text and images outputs processed from execute_code function
+      to the history
+  chat_completion:
+    use_for: executing a cycle of conversation based on user input and function calls
+    works_by: creating a ChatCompletion instance with specific parameters
+  parse_json:
+    use_for: handling GPT-generated JSON strings that contain Python code
+    works_by: extracting code directly from JSON strings, processing non-standard
+      formats
+
+jupyter_backend.py:
+  delete_color_control_char:
+    use_for: Removing ANSI color codes from strings, often found in terminal outputs.
+    works_by: Using regex pattern matching to find and replace ANSI codes with empty
+      strings.
+
+response_parser.py:
+  parse_response:
+    use_for: Interpreting responses by applying various choice strategies and updating
+      the system state and conversation history.
+    works_by: Utilizing a series of strategies, each checking for specific response
+      formats, and processing them accordingly.
+
+web_ui.py:
+  add_file:
+    use_for: Uploading a file and making its contents accessible in the active session.
+    works_by: Copying the uploaded file to the working directory and adding a message
+      about the file to the conversation.
+  add_text:
+    use_for: Submitting user input text to the conversation history and processing
+      it.
+    works_by: Adding the user text to the bot backend's conversation and triggering
+      the LLM's response.
+  bot:
+    use_for: Generates responses from the bot backend based on user input.
+    works_by: Iterating through user input to process GPT responses and parse backend
+      execution results.
+  get_bot_backend:
+    use_for: Retrieving the current bot backend object to interact with the host system
+      and execute code.
+    works_by: Accessing a stored instance of the bot backend within a state dictionary.
+  initialization:
+    use_for: Setting up the initial state and environment required for the backend
+      server to function.
+    works_by: Creating necessary directories and initiating objects or variables as
+      needed.
+  refresh_file_display:
+    use_for: Displaying updated list of files in the working directory.
+    works_by: Retrieving list of non-directory files from the working directory.
+  restart_bot_backend:
+    use_for: Restarting the bot's backend, including clearing the working directory
+      and restarting the Jupyter kernel.
+    works_by: Invoking methods to clear files, reset conversation, response log values,
+      and restart Jupyter kernel.
+  restart_ui:
+    use_for: Reseting the user interface, clearing the history of interactions.
+    works_by: Clearing the history list and resetting UI component states.
+  switch_to_gpt4:
+    use_for: Switching the LLM in use to GPT-4 or back to GPT-3.5 depending on user
+      choice.
+    works_by: Invoking the bot backend's method to update its internal GPT model choice
+      configuration.
+  undo_upload_file:
+    use_for: Reversing a file upload action, removing the uploaded file from the session.
+    works_by: Deleting the last uploaded file from the system and the conversation
+      history.

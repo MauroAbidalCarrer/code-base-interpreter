@@ -1,0 +1,43 @@
+bot_backend.py:
+  BotBackend:
+    represents: Core backend functionality for bot, integrating GPT logging and Jupyter
+      kernel.
+    use_for: Handling bot operations including conversation, code execution, file
+      management, and API configuration.
+  GPTResponseLog:
+    represents: Storage for AI's internal conversation state and execution information.
+    use_for: Tracking conversation state, responses, and code execution details.
+
+functional.py: {}
+
+jupyter_backend.py:
+  JupyterKernel:
+    represents: Interface to a live Jupyter kernel for code execution.
+    use_for: Running Python code and fetching results during conversation with the
+      bot.
+
+response_parser.py:
+  ArgumentsFunctionCallChoiceStrategy:
+    represents: extraction and handling of function arguments
+    use_for: managing arguments for function calls made by the model
+  ChoiceHandler:
+    represents: handler for processing various types of choices
+    use_for: managing the execution of different strategic choices in response parsing
+  ChoiceStrategy:
+    represents: Abstract base class for handling GPT choices.
+    use_for: Implementing strategies for processing different types of choices made
+      by GPT.
+  ContentChoiceStrategy:
+    represents: decision points for processing content in responses
+    use_for: choosing response content during conversation
+  FinishReasonChoiceStrategy:
+    represents: end conditions for a dialogue turn
+    use_for: determining the reason to stop or continue the conversation
+  NameFunctionCallChoiceStrategy:
+    represents: choice for function name invocation
+    use_for: invoking a specific function when called by the model
+  RoleChoiceStrategy:
+    represents: Strategy for handling role changes in GPT choices.
+    use_for: Adjusting bot's role during a conversation in response to GPT's choice.
+
+web_ui.py: {}

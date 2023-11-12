@@ -1,0 +1,55 @@
+bot_backend.py:
+  BotBackend:
+    represents: Central logic and state management entity that inherits from GPTResponseLog,
+      encapsulates Jupyter kernel interactions, and handles OpenAI API configuration.
+    use_for: Managing and orchestrating the bot's overall backend operations, including
+      incoming messages, file handling, kernel management, and GPT model interactions.
+  GPTResponseLog:
+    represents: A storage container for intermediate state and responses during interactions
+      with a GPT model.
+    use_for: Logging and retaining information about the assistant's responses and
+      function calls during a session with GPT model.
+
+functional.py: {}
+
+jupyter_backend.py:
+  JupyterKernel:
+    represents: An interface to a Jupyter kernel, enabling code execution and environment
+      management.
+    use_for: Executing code as per user instructions and managing the code execution
+      environment.
+
+response_parser.py:
+  ArgumentsFunctionCallChoiceStrategy:
+    represents: a strategy for managing arguments for function calls mentioned in
+      the assistant's response, in line with the ChoiceStrategy framework.
+    use_for: adding argument strings for the function the backend is tasked to execute.
+  ChoiceHandler:
+    represents: a class that coordinates the execution of various ChoiceStrategy instances
+      based on the assistant's response.
+    use_for: managing the sequence of steps and applying the correct strategy to parse
+      and handle each part of the assistant's response.
+  ChoiceStrategy:
+    represents: an abstract base class that defines a strategy for handling different
+      types of choices during the parsing of GPT responses.
+    use_for: serving as a base for concrete classes that implement specific strategies
+      for dealing with choices in the response parsing process.
+  ContentChoiceStrategy:
+    represents: a concrete strategy for handling content changes in the assistant's
+      response, conforming to the ChoiceStrategy pattern.
+    use_for: appending content to the assistant's response.
+  FinishReasonChoiceStrategy:
+    represents: a strategy pattern for handling the finishing reason as stated by
+      the assistant's response.
+    use_for: determining the action to take when a response iteration is completed,
+      such as making function calls.
+  NameFunctionCallChoiceStrategy:
+    represents: a strategy for processing the name of a function to be called, as
+      specified in the assistant's response and defined by the ChoiceStrategy.
+    use_for: setting the function name that the backend needs to execute.
+  RoleChoiceStrategy:
+    represents: a concrete strategy for handling role changes in the assistant's response,
+      as part of the ChoiceStrategy pattern.
+    use_for: adjusting the assistant's role name based on the response's content.
+
+web_ui.py: {}

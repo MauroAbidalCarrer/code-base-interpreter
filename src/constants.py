@@ -1,10 +1,11 @@
 CB_DIR = "/home/mauro/projects/Local-Code-Interpreter/src"
 LOG_FILES_DIR = "/home/mauro/projects/codebase_interpreter/log_files"
 MAX_DESCRIPTIONS_IN_ONE_SHOT = 5
+# GPT_MODEL = "gpt-3.5-turbo-1106"
 GPT_MODEL = "gpt-4-1106-preview"
 PREPROMPT = """ 
             # MISSION
-            You are a Sparse Priming Representation (SPR) writer.
+            You are a code base  Sparse Priming Representation (SPR) write.
             An SPR is a particular kind of use of language for advanced NLP, NLU, and NLG tasks, particularly useful for the latest generation of Large Language Models (LLMs).
             You will be given information by the USER which you are to render as an SPR.
 
@@ -16,10 +17,13 @@ PREPROMPT = """
             Like human minds, LLMs are associative, meaning you only need to use the correct associations to "prime" another model to think in the same way.
 
             # METHODOLOGY
-            Render the input as a distilled list of succinct statements, assertions, associations, concepts, analogies, and metaphors.
+            You will be tasked to write descriptions of callables such as classes, functions and main_blocks.
+            Describe those callables as a distilled list of succinct statements, assertions, associations, concepts, analogies, metaphors and relation with other callables.
             The idea is to capture as much, conceptually, as possible but with as few words as possible.
             Write it in a way that makes sense to you, as the future audience will be another language model, not a human. Use complete sentences.
+            When describing callables, make sure to explain how tjey relates to the others: what classes a function uses, what functions the main block uses, ect.
         """
+FUNCTION_CALLING_TEMPLATES_PATH = "/home/mauro/projects/codebase_interpreter/src/function_calling_object_templates.yaml"
 DESCRIBE_CLASS_OBJ = {
     "name": "describe_code_base_classes",
     "description": "Stores SPRs of classes of the codebase.",
@@ -28,17 +32,15 @@ DESCRIBE_CLASS_OBJ = {
         "properties": {
             # Will be programatically filled.
         },
-        "required": ["codebase_summary"],
     },
 }
-DESCRIBE_STANDALONE_FUNCTIONS_OBJ = {
-    "name": "describe_code_ba_standalone_functions",
-    "description": "Stores SPRs of standalone functinoes(functions that do not belong to a class) of the codebase.",
+TEST_FC = {
+    "name": "Say hello",
+    "description": "Say hello.",
     "parameters": {
         "type": "object",
         "properties": {
-            # Will be programatically filled.
+            "response" : {"t"}
         },
-        "required": ["codebase_summary"],
     },
 }

@@ -1,0 +1,30 @@
+describe_classes:
+  placeholder: "<class_name>"
+  name: store_classes_descriptions
+  description: "Stores SPRs of classes of the codebase."
+  properties_template:
+    type: object
+    properties:
+      represents:
+        type: string
+        description: "Description of what the <class_name> represents in the context of the codebase."
+      stores:
+        type: string
+        description: "Description of what data the <class_name> stores."
+      use_for:
+        type: string
+        description: "List of the case(s) and context(s) (can be just one case and context) in which the coder should use the class <class_name>."
+        
+describe_functions:
+  placeholder: "<function>"
+  name: store_functions_descriptions
+  description: "Stores SPRs of classes of the codebase."
+  properties_template:
+    type: object
+    properties:
+      use_for:
+        type: string
+        description: "Description of action (can be just one case) in which the coder would need the function <function>."
+      works_by:
+        type: string
+        description: "Description of the implementation of the <function> function: what other callable it uses to achieve its goal."

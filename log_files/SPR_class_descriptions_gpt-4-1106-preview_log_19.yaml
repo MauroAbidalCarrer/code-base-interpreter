@@ -1,0 +1,47 @@
+bot_backend.py:
+  BotBackend:
+    represents: the central managing class for backend operations, inheriting from
+      GPTResponseLog
+    use_for: handling all interactions, maintaining state, configuring the API, and
+      managing the Jupyter kernel
+  GPTResponseLog:
+    represents: a log of interactions and metadata related to GPT-assisted executions
+    use_for: tracking and modifying the state and history of GPT-assisted operations
+      within the backend
+
+functional.py: {}
+
+jupyter_backend.py:
+  JupyterKernel:
+    represents: an interface to a Jupyter kernel for code execution
+    use_for: executing user-provided code snippets within a Python environment
+
+response_parser.py:
+  ArgumentsFunctionCallChoiceStrategy:
+    represents: the argument handling for function calls
+    use_for: processing and passing the correct arguments to the function calls made
+      by the model
+  ChoiceHandler:
+    represents: orchestration of decision strategies
+    use_for: managing and executing the chosen strategies for outputs and function
+      calls
+  ChoiceStrategy:
+    represents: an abstract strategy for handling various choice-based tasks
+    use_for: specializing different choice processing tactics for the response parser
+  ContentChoiceStrategy:
+    represents: decision-making for text content output within the program
+    use_for: handling the output text content that the model should display in response
+      to user queries
+  FinishReasonChoiceStrategy:
+    represents: handling the terminal reason for a series of model actions
+    use_for: managing the completion of tasks and reasons for ending function calls
+      or text outputs
+  NameFunctionCallChoiceStrategy:
+    represents: the strategy for calling a function by its name
+    use_for: determining which function to call based on the model's generated output
+  RoleChoiceStrategy:
+    represents: a concrete implementation of ChoiceStrategy specific to handling role
+      choices
+    use_for: determining actions based on the role attribute in choices
+
+web_ui.py: {}

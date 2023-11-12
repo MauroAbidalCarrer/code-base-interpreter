@@ -1,0 +1,57 @@
+bot_backend.py:
+  BotBackend:
+    represents: The BotBackend represents the backend logic for the code interpreter,
+      responsible for managing the conversation, executing code, and handling user
+      and system interactions.
+    use_for: Code execution, chat interaction, file handling, model switching
+  GPTResponseLog:
+    represents: Class that represents the state and log of GPT response, including
+      content, function name, finish reason, and bot role.
+    use_for: Storing and managing the state of GPT response logs during code interpretation.
+
+functional.py: {}
+
+jupyter_backend.py:
+  JupyterKernel:
+    represents: Class that manages the communication with the Jupyter kernel for executing
+      Python code and retrieving the terminal output.
+    use_for: Executing Python code and handling the terminal output in the code interpretation
+      process.
+
+response_parser.py:
+  ArgumentsFunctionCallChoiceStrategy:
+    represents: The ArgumentsFunctionCallChoiceStrategy represents the function arguments
+      to be passed to the function being called by the bot.
+    use_for: Handling the arguments of the function call and preparing them for execution
+      by the backend.
+  ChoiceHandler:
+    represents: The ChoiceHandler represents the decision making entity for the bot
+      in response to the choices provided by the AI model.
+    use_for: Managing the execution of various strategies based on the choices provided
+      by the AI model.
+  ChoiceStrategy:
+    represents: Abstract class for defining strategies for handling different choices
+      during code interpretation.
+    use_for: Handling various types of choices made during the code interpretation
+      process.
+  ContentChoiceStrategy:
+    represents: The ContentChoiceStrategy represents the content to be added to the
+      bot's conversation.
+    use_for: Adding text and file uploads to the bot's conversation to be processed
+      by the AI model.
+  FinishReasonChoiceStrategy:
+    represents: The FinishReasonChoiceStrategy represents the finish reason for the
+      bot's action, such as completing a function call or adding content to the conversation.
+    use_for: Handling the finish reason and updating the bot's conversation and actions
+      accordingly.
+  NameFunctionCallChoiceStrategy:
+    represents: The NameFunctionCallChoiceStrategy represents the function name to
+      be called by the bot, such as the Python interpreter.
+    use_for: Handling function name calls and preparing them for execution by the
+      backend.
+  RoleChoiceStrategy:
+    represents: Class that implements the choice strategy for handling role-related
+      choices during code interpretation.
+    use_for: Handling role-related choices made during the code interpretation process.
+
+web_ui.py: {}

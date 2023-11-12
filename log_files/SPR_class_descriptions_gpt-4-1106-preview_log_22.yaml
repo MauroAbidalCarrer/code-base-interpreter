@@ -1,0 +1,87 @@
+bot_backend.py:
+  config_openai_api:
+    use_for: Configure the OpenAI API with specific settings like type, base URL,
+      version, and key.
+    works_by: Sets module-wide variables within the openai library to configure the
+      API client.
+  get_config:
+    use_for: Acquiring application configuration data, including API keys and endpoints.
+    works_by: Reads a JSON file, loads its content, filters out OPENAI_API_KEY if
+      needed, and returns the configuration.
+
+functional.py:
+  add_function_response_to_bot_history:
+    use_for: To add the results of function execution to the chatbot's history, including
+      terminal output and images.
+    works_by: Processing raw terminal output and encoded image data, transforming
+      to human-readable text and rendering image links.
+  chat_completion:
+    use_for: Generating responses based on current conversation state and completion
+      functions.
+    works_by: Calling the OpenAI API or a designated endpoint with the current conversation
+      history.
+  parse_json:
+    use_for: Parses non-standard JSON strings, extracting code directly despite potential
+      format irregularities, particularly newline characters in string values.
+    works_by: Sequentially scans the input string for JSON structure markers, identifies
+      code boundaries, and extracts code segment; handles unfinished JSON strings,
+      accommodating GPT-generated idiosyncrasies.
+
+jupyter_backend.py:
+  delete_color_control_char:
+    use_for: Removing ANSI color codes from a string, typically used to clean textual
+      output from a terminal.
+    works_by: Utilizes a regular expression to find and remove control characters
+      that are used for text formatting in terminal output.
+
+response_parser.py:
+  parse_response:
+    use_for: Interpreting the response from a GPT model call and integrating it into
+      the state of the bot backend.
+    works_by: Processes the JSON response 'chunk', manages conversation history and
+      bot backend state, and determines whether to exit the conversation flow based
+      on the response content.
+
+web_ui.py:
+  add_file:
+    use_for: Manages file upload events initiated by the user, staging the file within
+      the working directory and preparing it for processing.
+    works_by: Leverages 'add_file_message' method of the BotBackend class to copy
+      the uploaded file to the Jupyter backend work directory and log the event.
+  add_text:
+    use_for: Processes user-provided text input by adding it to the conversation message
+      stack and creating a chatbot update trigger.
+    works_by: Utilizes the 'add_text_message' method of the BotBackend class to append
+      a user role message with text content to the conversation.
+  bot:
+    use_for: Driving the main chat interaction and processing user inputs.
+    works_by: Engaging in conversation, parsing responses, and executing code via
+      backend functions.
+  get_bot_backend:
+    use_for: Retrieve the current instance of BotBackend managing the conversation
+      and execution environment state.
+    works_by: Accesses the 'bot_backend' key in the state dictionary passed throughout
+      the UI functions to maintain consistent session state.
+  initialization:
+    use_for: Setting up the initial required state and environment for the application
+      to function properly.
+    works_by: Creates a working directory, initializes a BotBackend instance, and
+      removes the OPENAI_API_KEY environment variable if necessary.
+  refresh_file_display:
+    use_for: Refreshing the interface to display available files in the workspace.
+    works_by: Listing files from the workspace directory.
+  restart_bot_backend:
+    use_for: Reinitializing the backend logic and kernel for code execution.
+    works_by: Clearing previous files, restarting the conversation and Jupyter kernel.
+  restart_ui:
+    use_for: Resetting the user interface to its initial state.
+    works_by: Clearing the chat history and updating interactive elements.
+  switch_to_gpt4:
+    use_for: Toggles the GPT model version between GPT-3.5 and GPT-4.
+    works_by: Calls the 'update_gpt_model_choice' method of the BotBackend class using
+      the input boolean to determine which model to select.
+  undo_upload_file:
+    use_for: Reverses a file upload action, removing the associated file from the
+      work directory and update history.
+    works_by: Invokes the 'revoke_file' method of BotBackend class to delete the most
+      recently uploaded file and undo the related conversational message.
