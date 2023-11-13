@@ -14,7 +14,7 @@ describe_classes:
       use_for:
         type: string
         description: "List of the case(s) and context(s) (can be just one case and context) in which the coder should use the class <class_name>."
-        
+
 describe_functions:
   placeholder: "<function>"
   name: store_functions_descriptions
@@ -22,15 +22,15 @@ describe_functions:
   properties_template:
     type: object
     properties:
-      # responsible_for:
-      #   type: string
-      #   description: "Description of what functionality/functionalities the <function> function is responsible for."
+      functionality:
+        type: string
+        description: "SPRs description of what functionalities the <function> function provides."
       implementation:
         type: string
-        description: "Description of the implementation of the <function> function: what other classes and function it uses to achieve its goal."
+        description: "Array of SPRs of the steps <function> function takes to functionality."
       arguments:
         type: string
-        description: "Description of the arguments that the <function> function uses. One sentence for each argument"
+        description: "Array of SPRs of the arguments that the <function> function uses. One sentence for each argument"
       returns:
         type: string
-        description: "Description of what the <function> function returns."
+        description: "SPR of what the <function> function returns."

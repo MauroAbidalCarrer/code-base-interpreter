@@ -1,0 +1,115 @@
+bot_backend.py:
+  config_openai_api:
+    arguments: API type, API base, API version, API key
+    functionality: Configures the OpenAI API settings
+    implementation: Updates the OpenAI API settings with the provided values
+    returns: None
+  get_config:
+    arguments: None
+    functionality: Retrieves the current OpenAI API configuration
+    implementation: Reads the API configuration from a file or environment variable
+    returns: The OpenAI API configuration settings
+
+functional.py:
+  add_function_response_to_bot_history:
+    arguments: Function response content, bot history, and a unique ID.
+    functionality: Adds the function response to the bot history, including terminal
+      output and image outputs.
+    implementation: Parses the function response to extract terminal output and image
+      data, and adds this information to the bot history.
+    returns: None.
+  chat_completion:
+    arguments: Bot backend attributes, GPT model choice, and chat completion parameters.
+    functionality: Generates a chat completion using OpenAI's GPT model, providing
+      responses to user input.
+    implementation: Calls the OpenAI ChatCompletion API with the appropriate parameters
+      and parses the response to generate chat completions.
+    returns: Response from GPT model for user input.
+  parse_json:
+    arguments: Function arguments string and a flag indicating if parsing is finished.
+    functionality: Parses non-standard JSON strings to extract the code directly,
+      avoiding errors during JSON loading.
+    implementation: Implements a parser to extract code directly from non-standard
+      JSON strings, handling cases where GPT may generate non-standard JSON format.
+    returns: Code string or None.
+
+jupyter_backend.py:
+  delete_color_control_char:
+    arguments: String input
+    functionality: Removes color control characters from a string
+    implementation: Uses regular expressions to remove ANSI escape sequences from
+      the input string
+    returns: The input string with color control characters removed
+
+response_parser.py:
+  parse_response:
+    arguments: GPT response chunk, chat history, bot backend
+    functionality: Parses the GPT response and updates the chat history
+    implementation: Processes the response from GPT and updates the chat history based
+      on the response
+    returns: Updated chat history and a flag indicating whether to exit the program
+
+web_ui.py:
+  add_file:
+    arguments: The file uploaded by the user.
+    functionality: Adds the user uploaded file to the conversation history and triggers
+      the bot to respond.
+    implementation: Appends information about the uploaded file to the conversation
+      history and triggers the bot to generate a response based on the current conversation
+      state.
+    returns: The updated conversation history.
+  add_text:
+    arguments: The user's text input.
+    functionality: Adds the user's text input to the conversation history and triggers
+      the bot to respond.
+    implementation: Appends the user's input to the conversation history and triggers
+      the bot to generate a response based on the current conversation state.
+    returns: The updated conversation history.
+  bot:
+    arguments: No arguments.
+    functionality: Provides the main functionality of the bot backend. Handles user
+      input, file uploads, and bot responses.
+    implementation: Manages the conversation history, provides a clean interface for
+      user interaction, and calls the appropriate functions for user input and file
+      uploads.
+    returns: List of bot responses.
+  get_bot_backend:
+    arguments: State dictionary
+    functionality: Retrieves the current bot backend instance
+    implementation: Fetches the current bot backend instance from the state dictionary
+    returns: The bot backend instance
+  initialization:
+    arguments: State dictionary
+    functionality: Initializes the bot backend state
+    implementation: Creates a BotBackend instance and handles the API key configuration
+    returns: None
+  refresh_file_display:
+    functionality: Retrieves the paths of files in the current workspace for display.
+    implementation: Retrieves the paths of files in the current workspace to display
+      them in the user interface.
+    returns: A list of file paths for display.
+  restart_bot_backend:
+    arguments: No arguments.
+    functionality: Allows the bot backend to be restarted, clearing the working directory
+      and resetting conversation history.
+    implementation: Clears all files in the working directory, clears the conversation
+      history, and resets the attributes associated with GPT response logging.
+    returns: None.
+  restart_ui:
+    functionality: Resets the conversation history and user interface components to
+      their initial state.
+    implementation: Clears the conversation history and resets the user interface
+      components to their initial state.
+    returns: The updated conversation history and reset user interface components.
+  switch_to_gpt4:
+    functionality: Switches the language model to GPT-4 for more powerful language
+      generation.
+    implementation: Updates the configuration settings to use the GPT-4 model for
+      language generation.
+    returns: None
+  undo_upload_file:
+    functionality: Undoes the last file upload and removes it from the conversation
+      history.
+    implementation: Removes the last file uploaded by the user from the conversation
+      history and makes it unavailable for the bot to process.
+    returns: The updated conversation history.

@@ -46,7 +46,9 @@ def get_callables_description(callables_names, describe_callable_FC_template, me
             model=model,
             messages=messages,
             functions=[describe_callables_FC],
-            function_call={"name": describe_callable_FC_template["name"]}
+            function_call={"name": describe_callable_FC_template["name"]},
+            seed=OPENAI_SEED,
+            temperature=TEMPERATURE,
             )
             
         # convert completion into json object
@@ -59,6 +61,7 @@ def get_callables_description(callables_names, describe_callable_FC_template, me
 
         # Debug
         print("===========================================CLASSES DESCRIPTIONS")
+        print(response_completion["system_fingerprint"])
         print(yaml.dump(json.loads(str_arguments), Dumper=CustomDumper))
 
     return callables_descriptions

@@ -1,0 +1,90 @@
+bot_backend.py:
+  config_openai_api:
+    arguments: API type, base URL, version, and API key for the OpenAI API.
+    functionality: Configures the OpenAI API settings for the bot backend.
+    implementation: Sets the environment variables for the OpenAI API, including the
+      type, base URL, version, and API key.
+    returns: None.
+  get_config:
+    arguments: No arguments.
+    functionality: Get the configuration settings for the bot backend.
+    implementation: Accesses the configuration settings that include the API type,
+      base URL, version, and API key for OpenAI.
+    returns: A dictionary containing the configuration settings for the bot backend.
+
+functional.py:
+  add_function_response_to_bot_history: {}
+  chat_completion: {}
+  parse_json: {}
+
+jupyter_backend.py:
+  delete_color_control_char:
+    arguments: A string with color control characters.
+    functionality: Deletes color control characters from a given string.
+    implementation: Uses regular expressions to remove color control characters from
+      the input string.
+    returns: The input string with color control characters removed.
+
+response_parser.py:
+  parse_response:
+    arguments: The response chunk and the bot backend.
+    functionality: Parses the response from the OpenAI chat completion and updates
+      the bot backend based on the response.
+    implementation: Parses the response choices to execute the appropriate actions
+      in the bot backend, such as updating the conversation history, executing code,
+      or handling finish reasons.
+    returns: The updated conversation history and a flag indicating whether to exit.
+
+web_ui.py:
+  add_file:
+    arguments: Uploaded file object.
+    functionality: Adds a file uploaded by the user to the conversation history.
+    implementation: Appends the file upload message to the conversation history and
+      triggers the execution of the bot.
+    returns: Updated conversation history (list).
+  add_text:
+    arguments: User text input (string).
+    functionality: Adds user text input to the conversation history.
+    implementation: Appends the user text to the conversation history and triggers
+      the execution of the bot.
+    returns: Updated conversation history (list).
+  bot: {}
+  get_bot_backend:
+    arguments: No arguments.
+    functionality: Retrieves the current instance of the bot backend.
+    implementation: Accesses the current instance of the bot backend stored in the
+      state dictionary.
+    returns: The current instance of the bot backend.
+  initialization:
+    arguments: A state dictionary containing the bot backend instance and conversation
+      history.
+    functionality: Initializes the bot backend and sets up the Jupyter work directory.
+    implementation: Creates a new instance of the bot backend and sets up the Jupyter
+      work directory for code execution.
+    returns: None.
+  refresh_file_display:
+    arguments: No arguments.
+    functionality: Refreshes the list of files in the bot backend's work directory.
+    implementation: Retrieves the current list of files in the bot backend's work
+      directory and returns the paths of those files.
+    returns: List of file paths.
+  restart_bot_backend: {}
+  restart_ui:
+    arguments: No arguments.
+    functionality: Restarts the user interface and clears the conversation history.
+    implementation: Clears the conversation history and resets the user interface
+      to its initial state.
+    returns: Cleared conversation history and reset UI components.
+  switch_to_gpt4:
+    arguments: Whether to switch to GPT-4 (boolean).
+    functionality: Switches the current language model to GPT-4 for chat completions.
+    implementation: Updates the GPT model choice of the bot backend to GPT-4. This
+      changes the underlying GPT model used for chat completions.
+    returns: No return value.
+  undo_upload_file:
+    arguments: No arguments.
+    functionality: Undoes the uploading of the last file and removes it from the conversation
+      history.
+    implementation: Removes the last file upload message from the conversation history
+      and deletes the file from the bot backend.
+    returns: Updated conversation history (list).

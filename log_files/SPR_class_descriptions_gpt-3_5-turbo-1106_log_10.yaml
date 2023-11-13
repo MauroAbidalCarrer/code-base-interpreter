@@ -1,0 +1,109 @@
+bot_backend.py:
+  config_openai_api:
+    arguments: API type, base API URL, API version, and API key.
+    implementation: The config_openai_api function sets the configuration settings
+      of the OpenAI API, including the API type, base API URL, API version, and API
+      key.
+    provides: Set the OpenAI API configuration.
+    returns: None
+  get_config:
+    arguments: None
+    implementation: The get_config function retrieves the current configuration settings
+      of the AI code interpreter.
+    provides: Returns the configuration settings of the AI code interpreter.
+    returns: A dictionary containing the configuration settings.
+
+functional.py:
+  add_function_response_to_bot_history:
+    arguments: 'function_response: The output of the function call. save_tokens: A
+      boolean value indicating whether to save the tokens.'
+    implementation: Extracts and adds the function call and its output to the conversation
+      history.
+    provides: Adds the function call and its output to the conversation history.
+    returns: No return value.
+  chat_completion:
+    arguments: No arguments are used.
+    implementation: Uses the GPT-3.5 model to generate responses and updates the conversation
+      log based on the model output.
+    provides: Completes the conversation log with the GPT-3.5 model.
+    returns: GPT-3.5 model response.
+  parse_json:
+    arguments: 'function_args: The non-standard JSON format string. finished: A boolean
+      value indicating whether the parsing operation has finished or is still ongoing.'
+    implementation: Extracts and parses the code directly from a non-standard JSON
+      format string, handling new line characters.
+    provides: Parses the function arguments from a non-standard JSON format string.
+    returns: The parsed code string if the parsing succeeds, otherwise None.
+
+jupyter_backend.py:
+  delete_color_control_char:
+    arguments: A string containing color control characters.
+    implementation: The delete_color_control_char function removes color control characters
+      from a given string.
+    provides: Removes color control characters from a string.
+    returns: A string with color control characters removed.
+
+response_parser.py:
+  parse_response:
+    arguments: Response from the GPT model, history, and BotBackend object.
+    implementation: The parse_response function parses a given response from the GPT
+      model and handles the chat completion process.
+    provides: Parses the response from the GPT model.
+    returns: A list of chat history and a boolean indicating whether to exit.
+
+web_ui.py:
+  add_file:
+    arguments: The file object uploaded by the user.
+    implementation: Handles the file upload, copies the file to the server work directory,
+      and adds an entry to the chat history for the bot to process.
+    provides: Allows the user to upload a file for the bot to process and analyze.
+  add_text:
+    arguments: The text string input by the user.
+    implementation: Appends the user input text to the chat history for the bot to
+      process.
+    provides: Add text to the chat interface for the bot to process and respond to.
+  bot:
+    arguments: No arguments are used.
+    implementation: Manages the conversation log, GPT-3.5 iterations, and Jupyter
+      kernel interaction.
+    provides: Represents the bot backend controller, which manages the conversation
+      history, GPT-3.5 iterations, and Jupyter kernel communication.
+    returns: Bot backend instance.
+  get_bot_backend:
+    arguments: None
+    implementation: The get_bot_backend function retrieves the BotBackend instance
+      from the AI code interpreter state.
+    provides: Returns the BotBackend instance.
+    returns: The BotBackend instance.
+  initialization:
+    arguments: A dictionary containing the bot backend state.
+    implementation: The initialization function initializes the state of the AI code
+      interpreter, creating a working directory if it doesn't exist.
+    provides: Initializes the AI code interpreter state.
+    returns: None
+  refresh_file_display:
+    implementation: Retrieves the list of files in the server work directory and returns
+      the paths to the files.
+    provides: Displays the list of files in the server work directory for the user
+      interface.
+    returns: A list of file paths to be displayed in the UI.
+  restart_bot_backend:
+    arguments: No arguments are used.
+    implementation: Clears the files and the conversation log in the bot backend,
+      resets the GPT-3.5 iteration count and bot history, and reinitializes the Jupyter
+      kernel.
+    provides: Restarts the bot backend.
+    returns: No return value.
+  restart_ui:
+    implementation: Clears the chat history and resets the user interface components
+      to their initial state.
+    provides: Restarts the user interface and chat history for a clean start.
+    returns: The cleared chat history and reset UI components.
+  switch_to_gpt4:
+    provides: Switch to the GPT-4 model for a more advanced language model.
+  undo_upload_file:
+    implementation: Deletes the last uploaded file from the server work directory
+      and revokes the corresponding bot message in the chat history.
+    provides: Rolls back the last file upload and removes it from the server work
+      directory.
+    returns: The bot message related to the file upload that was revoked.

@@ -1,0 +1,97 @@
+bot_backend.py:
+  config_openai_api:
+    arguments: API type, API base, API version, and API key.
+    implementation: Sets the OpenAI API configuration parameters.
+    returns: None
+  get_config:
+    arguments: None
+    implementation: Returns the config settings for OpenAI API.
+    returns: Configuration settings for the OpenAI API.
+
+functional.py:
+  add_function_response_to_bot_history:
+    arguments: 'content_to_display: The content and format of the output generated
+      by the function call.
+
+      history: The current conversation history of the bot.
+
+      unique_id: A unique identifier to distinguish images of different function calls.'
+    implementation: This function adds the function response to the bot history. It
+      extracts text and image outputs from the response and adds them to the bot history
+      for display. It also handles error messages and saves images to a temporary
+      folder.
+    returns: None
+  chat_completion:
+    arguments: 'bot_backend: BotBackend, required. The state of the bot backend.'
+    implementation: Obtains the completion response from the GPT model based on the
+      conversation and bot_backend state.
+    returns: List of GPT response chunks.
+  parse_json:
+    arguments: 'function_args: The non-standard JSON format string containing the
+      code.
+
+      finished: A boolean flag indicating whether the JSON format string is complete
+      or not.'
+    implementation: This function parses non-standard JSON format strings to extract
+      code directly. It determines the start and end of the code and extracts it from
+      the input string. It also handles unfinished JSON format strings as well.
+    returns: The extracted code string if successfully parsed, otherwise None.
+
+jupyter_backend.py:
+  delete_color_control_char:
+    arguments: A string containing color control characters.
+    implementation: Removes color control characters from a string.
+    returns: The input string without color control characters.
+
+response_parser.py:
+  parse_response:
+    arguments: Response data chunk, history of the chat, and bot backend information.
+    implementation: Parses the response data and updates the bot's history based on
+      the response from GPT-3.5 or GPT-4.
+    returns: Updated chat history and whether to exit.
+
+web_ui.py:
+  add_file:
+    implementation: Adds a file upload message to the conversation history, copies
+      the file to the Jupyter working directory, and updates the display of uploaded
+      files.
+  add_text:
+    implementation: Adds a user text input message to the conversation history and
+      performs chat completion with the bot.
+  bot:
+    arguments: 'history: List, required. The conversation history.
+
+      Text input: str, optional. The user''s text input.
+
+      File input: file, optional. The user''s file upload.'
+    implementation: Handles the main bot logic for text and file inputs, as well as
+      manages the conversation with the GPT-3.5 or GPT-4 API.
+    returns: List of conversation history.
+  get_bot_backend:
+    implementation: Creates a new instance of the BotBackend class, initializes the
+      Jupyter kernel, initializes the conversation, and loads the API configuration.
+  initialization:
+    arguments: State dictionary
+    implementation: Initializes the bot backend and sets the cache directory.
+    returns: None
+  refresh_file_display:
+    arguments: No arguments
+    implementation: Lists all the files in the working directory and returns their
+      paths.
+    returns: List of file paths.
+  restart_bot_backend:
+    arguments: No arguments
+    implementation: Restarts the bot backend and clears the revocable files list.
+    returns: None.
+  restart_ui:
+    arguments: No arguments
+    implementation: Clears the conversation history and resets the user interface
+      components.
+    returns: Empty history and refreshed UI components.
+  switch_to_gpt4:
+    implementation: Updates the GPT model choice to 'GPT-4' if it is available, or
+      'GPT-3.5' otherwise.
+  undo_upload_file:
+    implementation: Reverts the last file upload message by removing the file and
+      the corresponding upload message from the conversation history and Jupyter working
+      directory.

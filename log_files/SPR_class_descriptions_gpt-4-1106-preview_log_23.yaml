@@ -1,0 +1,60 @@
+bot_backend.py:
+  config_openai_api:
+    works_by: Sets OpenAI API configurations such as type, base, version, key.
+  get_config:
+    works_by: Loads JSON configuration from 'config.json', defaults to environment
+      variable if API_KEY not set.
+
+functional.py:
+  add_function_response_to_bot_history:
+    works_by: Logs function output. Handles text and image outputs. Marks error occurrences.
+      Updates 'history' with formatted output and images.
+  chat_completion:
+    works_by: Interfaces with OpenAI's 'ChatCompletion'. Configures API for chosen
+      model. Retrieves response chunks.
+  parse_json:
+    works_by: Extracts code directly from non-standard JSON strings that may contain
+      newline characters, avoiding JSON parsing errors. Ensures proper extraction
+      whether or not the parsing is set to finish, leveraging specific key indices
+      and flags to manage parsing flow and endpoints.
+
+jupyter_backend.py:
+  delete_color_control_char:
+    works_by: Cleans ANSI color and formatting escape sequences from text output.
+
+response_parser.py:
+  parse_response:
+    works_by: Processes server response, adjusting bot_backend's conversation history
+      and execution workflow.
+
+web_ui.py:
+  add_file:
+    works_by: Copies uploaded file to Jupyter work directory, appends file system
+      message and record to conversation, sets record for potential revocation.
+  add_text:
+    works_by: Appends text as user message to bot backend's conversation, resets revocable
+      file list, marks chat history for continuation.
+  bot:
+    works_by: Sequentially processes user input and backend responses. Activates 'chat_completion'
+      loop. Parses responses.
+  get_bot_backend:
+    works_by: initializes and returns the instance of the BotBackend class holding
+      the state
+  initialization:
+    works_by: Initializes web UI state and BotBackend, clears OPENAI_API_KEY from
+      environment variables.
+  refresh_file_display:
+    works_by: Lists filenames in Jupyter work directory for display in file output
+      UI component.
+  restart_bot_backend:
+    works_by: Invokes 'BotBackend' restart. Resets state. Clears work directory. Initializes
+      conversation.
+  restart_ui:
+    works_by: Initializes interface. Resets 'history'. Disables textbox. Disables
+      buttons.
+  switch_to_gpt4:
+    works_by: Switches GPT model choice between GPT-3.5 and GPT-4 based on boolean
+      flag, updates completion parameters.
+  undo_upload_file:
+    works_by: Removes the most recently uploaded file from work directory and associated
+      messages, updates history and UI elements for revocability.

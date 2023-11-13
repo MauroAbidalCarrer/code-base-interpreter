@@ -1,0 +1,113 @@
+bot_backend.py:
+  config_openai_api:
+    arguments: API type, API base, API version, API key.
+    functionality: Configures the OpenAI API settings for the bot backend.
+    implementation: Sets the OpenAI API type, base, version, and key for the bot backend.
+    returns: None.
+  get_config:
+    functionality: Retrieves the current configuration settings for the bot backend.
+    implementation: Reads and returns the configuration from the 'config.json' file
+      or environment variables.
+    returns: Current configuration settings for the bot backend.
+
+functional.py:
+  add_function_response_to_bot_history:
+    arguments: Function response from the Jupyter kernel.
+    functionality: Adds the function response to the bot's conversation history.
+    implementation: Parses and adds the function response including output, error,
+      and image to the chat history.
+    returns: An updated chat history with the added function response.
+  chat_completion:
+    arguments: Text input from the user.
+    functionality: Generates a response from the bot based on the user's input.
+    implementation: Uses OpenAI's ChatCompletion API to generate a response to the
+      user's input.
+    returns: A list of potential responses to the user's input.
+  parse_json:
+    arguments: String containing non-standard JSON format.
+    functionality: Parses non-standard JSON format string to extract code.
+    implementation: Parses non-standard JSON format string and extracts the code for
+      execution.
+    returns: The extracted code if successfully parsed, otherwise None.
+
+jupyter_backend.py:
+  delete_color_control_char:
+    arguments: Input string with ANSI color control characters.
+    functionality: Removes ANSI color control characters from a given string.
+    implementation: Uses regex to remove the ANSI color control characters from the
+      input string.
+    returns: String with ANSI color control characters removed.
+
+response_parser.py:
+  parse_response:
+    arguments: Response chunk, history, bot backend.
+    functionality: Parses the response from GPT and appends the response chunks to
+      the history based on the choice strategies.
+    implementation: Parses the response chunk from GPT and uses choice strategies
+      to execute the response.
+    returns: Updated history after parsing the response and a boolean flag indicating
+      whether to exit.
+
+web_ui.py:
+  add_file:
+    arguments: File uploaded by the user.
+    functionality: Adds a file message to the conversation history and triggers the
+      chatbot.
+    implementation: Takes in a file uploaded by the user, adds it to the conversation
+      history, and triggers the chatbot to respond.
+    returns: Updated conversation history.
+  add_text:
+    arguments: Text input from the user.
+    functionality: Adds a text message to the conversation history and triggers the
+      chatbot.
+    implementation: Takes in the user's input text and adds it to the conversation
+      history, then triggers the chatbot to respond.
+    returns: Updated conversation history.
+  bot:
+    arguments: Text input entered by the user.
+    functionality: The primary function for conversation and interaction with the
+      bot.
+    implementation: Manages the bot's conversation state and executes Jupyter kernel
+      functions based on user input.
+    returns: A list of chat history including both user and bot messages.
+  get_bot_backend:
+    functionality: Retrieves the current instance of the bot backend.
+    implementation: Returns the current instance of the bot backend from the state
+      dictionary.
+    returns: Current instance of the bot backend.
+  initialization:
+    functionality: Initializes the bot backend and creates necessary directories.
+    implementation: Initializes the bot backend and creates the necessary cache directory
+      if it does not exist.
+    returns: None.
+  refresh_file_display:
+    arguments: None
+    functionality: Refreshes the file display in the conversation history.
+    implementation: Retrieves the latest file list from the bot backend and updates
+      the file display in the conversation history.
+    returns: List of file paths.
+  restart_bot_backend:
+    arguments: None
+    functionality: Restart the bot backend and clear the files in the work directory
+    implementation: Clears all files in the work directory, resets the conversation,
+      and restarts the Jupyter kernel.
+    returns: None
+  restart_ui:
+    arguments: None
+    functionality: Restarts the user interface and conversation history.
+    implementation: Clears the conversation history and resets the user interface
+      components, triggers the conversation history to be cleared and the user interface
+      to be restarted.
+    returns: Cleared conversation history and restarted UI components.
+  switch_to_gpt4:
+    arguments: Whether to switch to GPT-4 model.
+    functionality: Switch to GPT-4 model for chat completion.
+    implementation: Updates the GPT model choice to GPT-4 for enhanced capabilities
+      in chat completion.
+    returns: None
+  undo_upload_file:
+    arguments: None
+    functionality: Revokes the last uploaded file from the conversation history.
+    implementation: Removes the last uploaded file from the conversation history and
+      refreshes the file display.
+    returns: Updated conversation history and file display.
