@@ -22,9 +22,15 @@ describe_functions:
   properties_template:
     type: object
     properties:
-      use_for:
+      # responsible_for:
+      #   type: string
+      #   description: "Description of what functionality/functionalities the <function> function is responsible for."
+      implementation:
         type: string
-        description: "Description of action (can be just one case) in which the coder would need the function <function>."
-      works_by:
+        description: "Description of the implementation of the <function> function: what other classes and function it uses to achieve its goal."
+      arguments:
         type: string
-        description: "Description of the implementation of the <function> function: what other callable it uses to achieve its goal."
+        description: "Description of the arguments that the <function> function uses. One sentence for each argument"
+      returns:
+        type: string
+        description: "Description of what the <function> function returns."

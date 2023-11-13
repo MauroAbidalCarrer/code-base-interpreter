@@ -1,8 +1,8 @@
 CB_DIR = "/home/mauro/projects/Local-Code-Interpreter/src"
 LOG_FILES_DIR = "/home/mauro/projects/codebase_interpreter/log_files"
 MAX_DESCRIPTIONS_IN_ONE_SHOT = 5
-# GPT_MODEL = "gpt-3.5-turbo-1106"
-GPT_MODEL = "gpt-4-1106-preview"
+GPT_3_5_MODEL = "gpt-3.5-turbo-1106"
+GPT_4_TURBO_MODEL = "gpt-4-1106-preview"
 PREPROMPT = """ 
             # MISSION
             You are a code base  Sparse Priming Representation (SPR) write.
@@ -19,28 +19,8 @@ PREPROMPT = """
             # METHODOLOGY
             You will be tasked to write descriptions of callables such as classes, functions and main_blocks.
             Describe those callables as a distilled list of succinct statements, assertions, associations, concepts, analogies, metaphors and relation with other callables.
-            The idea is to capture as much, conceptually, as possible but with as few words as possible.
-            Write it in a way that makes sense to you, as the future audience will be another language model, not a human. Use complete sentences.
+            The idea is to capture as much, conceptually, as possible but with as few words as possible.    
+            Write it in a way that makes sense to you, as the future audience will be another language model, not a human.
             When describing callables, make sure to explain how tjey relates to the others: what classes a function uses, what functions the main block uses, ect.
         """
 FUNCTION_CALLING_TEMPLATES_PATH = "/home/mauro/projects/codebase_interpreter/src/function_calling_object_templates.yaml"
-DESCRIBE_CLASS_OBJ = {
-    "name": "describe_code_base_classes",
-    "description": "Stores SPRs of classes of the codebase.",
-    "parameters": {
-        "type": "object",
-        "properties": {
-            # Will be programatically filled.
-        },
-    },
-}
-TEST_FC = {
-    "name": "Say hello",
-    "description": "Say hello.",
-    "parameters": {
-        "type": "object",
-        "properties": {
-            "response" : {"t"}
-        },
-    },
-}

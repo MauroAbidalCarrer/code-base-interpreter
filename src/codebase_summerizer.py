@@ -1,12 +1,12 @@
 import openai
-import os
 from os import path
 import json
 import yaml
 from utils import *
-import sys
 from constants import *
 import copy
+import tiktoken
+import sys
 
 def generate_function_call_oject(values, function_call_template):
     function_call_object = {
@@ -43,7 +43,7 @@ def get_callables_description(callables_names, describe_callable_FC_template, me
             
         # Get completion
         response_completion = openai.ChatCompletion.create(
-            model=GPT_MODEL,
+            model=model,
             messages=messages,
             functions=[describe_callables_FC],
             function_call={"name": describe_callable_FC_template["name"]}
@@ -65,15 +65,26 @@ def get_callables_description(callables_names, describe_callable_FC_template, me
 
 
 if __name__ == "__main__":
+    # initialize open AI stuff
+    if len(sys.argv) > 1 and sys.argv[1] == "gpt-4":
+        model = GPT_4_TURBO_MODEL
+    else:
+        model = GPT_3_5_MODEL 
+    print("model:", model)
     setup_opena_AI_key()
 
-    # Setup messages conversation with preprompt
+    # Initialize vars
     messages = [{"role": "system", "content": PREPROMPT}]
     modules = get_modules_contents(CB_DIR)
     classes_to_module_dict = {}
     functions_to_module_dict = {}
     main_code_to_module_dict = {}
+    cb_nb_tokens = 0
+    enc = tiktoken.encoding_for_model(model)
+
+    
     for module_name, module_content in modules.items():
+        # Store callables names and corresponding modules names
         classes_names, functions, main_block = extract_classes_and_functions(module_content)
         for class_name in classes_names:
             classes_to_module_dict[class_name] = module_name
@@ -81,7 +92,10 @@ if __name__ == "__main__":
             functions_to_module_dict[function] = module_name
         if main_block:
             main_code_to_module_dict[class_name] = module_name
+        # Add module content
         messages.append({"role": "system", "content": f"# {module_name}:\n{module_content}"})
+        # Count number of tokens
+        cb_nb_tokens += len(enc.encode(module_content))
 
     # Initialize code base description object
     cb_description = {}
@@ -108,9 +122,13 @@ if __name__ == "__main__":
     # Convert cb description object to YAML formatted string    
     cb_description = yaml.dump(cb_description, Dumper=CustomDumper)
     print(cb_description)
+    cb_description_nb_tokens = len(enc.encode(cb_description))
+    print("codebase nb tokens:", cb_nb_tokens)
+    print("description nb tokens:", cb_description_nb_tokens)
+    print(f"compression ratio: {(cb_nb_tokens / cb_description_nb_tokens):.2f}")
 
     #Logging
-    log_file_name = f"SPR_class_descriptions_" + GPT_MODEL.replace('.','_') + "_log.yaml"
+    log_file_name = f"SPR_class_descriptions_" + model.replace('.','_') + "_log.yaml"
     unique_log_file_name = generate_unique_filename(log_file_name, LOG_FILES_DIR)
     with open(unique_log_file_name, 'w') as log_file:
         log_file.write(cb_description)
